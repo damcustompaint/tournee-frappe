@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Suivi Tournée Planche</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #F5F5F5; font-size: 14px; }
+
+/* HEADER */
+.header { background: #1565C0; color: white; padding: 12px; }
+.header h1 { font-size: 17px; margin-bottom: 2px; }
+.header p  { font-size: 11px; color: #BBDEFB; margin-bottom: 8px; }
+.header-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.header-field { display: flex; flex-direction: column; flex: 1; min-width: 120px; }
+.header-field label { font-size: 10px; color: #BBDEFB; margin-bottom: 3px; }
+.header-field input { padding: 6px; border-radius: 6px; border: none; font-size: 13px; }
+
+/* NAV */
+.nav { display: flex; background: #0D47A1; }
+.nav button { flex: 1; padding: 11px; background: none; border: none;
+  color: #90CAF9; font-size: 13px; font-weight: bold; cursor: pointer;
+  border-bottom: 3px solid transparent; }
+.nav button.active { color: white; border-bottom: 3px solid #FFD54F; }
+
+/* ECRANS */
+.screen { display: none; padding: 8px; }
+.screen.active { display: block; }
+
+/* ══ ENCOURS LENDEMAIN (T3) ══ */
+.encours-banner {
+  background: linear-gradient(135deg, #4A148C, #7B1FA2);
+  color: white; border-radius: 12px; padding: 14px 16px;
+  margin: 8px 0; box-shadow: 0 4px 14px rgba(74,20,140,0.3);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.encours-banner h3 { font-size: 13px; opacity: 0.9; margin-bottom: 4px; }
+.encours-banner .big { font-size: 36px; font-weight: 900; letter-spacing: 1px; }
+.encours-banner .unit { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+.encours-badge {
+  background: rgba(255,255,255,0.2); border-radius: 8px;
+  padding: 6px 14px; font-size: 11px; text-align: center; font-weight: bold;
+}
+
+/* ══ TEMPS TOTAL ══ */
+.temps-total-bloc {
+  background: white; border-radius: 12px; padding: 12px 16px;
+  margin: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+  border-left: 5px solid #FF9800;
+}
+.temps-total-titre {
+  font-size: 13px; font-weight: 800; color: #E65100;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.dot-blink { width: 9px; height: 9px; border-radius: 50%;
+  display: inline-block; animation: blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* JAUGES T1/T2/T3 GLOBALES PAGE 1 */
+.tournee-global-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px;
+}
+.tournee-card {
+  border-radius: 10px; padding: 10px 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.tournee-card.t1 { background: #E3F2FD; border-top: 4px solid #1565C0; }
+.tournee-card.t2 { background: #E8F5E9; border-top: 4px solid #2E7D32; }
+.tournee-card.t3 { background: #FFF3E0; border-top: 4px solid #E65100; position:relative; }
+.tournee-card h4 { font-size: 12px; font-weight: 800; margin-bottom: 6px; }
+.tournee-card.t1 h4 { color: #1565C0; }
+.tournee-card.t2 h4 { color: #2E7D32; }
+.tournee-card.t3 h4 { color: #E65100; }
+.t3-badge {
+  position: absolute; top: 6px; right: 8px;
+  background: #E65100; color: white; font-size: 9px; font-weight: bold;
+  padding: 2px 6px; border-radius: 4px;
+}
+.tournee-card .val { font-size: 22px; font-weight: 900; }
+.tournee-card.t1 .val { color: #1565C0; }
+.tournee-card.t2 .val { color: #2E7D32; }
+.tournee-card.t3 .val { color: #E65100; }
+.tournee-card .unit { font-size: 10px; color: #888; }
+
+/* Mini jauge dans carte tournée */
+.mini-jauge-track { height: 10px; background: #ddd; border-radius: 5px; overflow: hidden; margin-top: 6px; }
+.mini-jauge-fill  { height: 100%; border-radius: 5px; transition: width .5s; }
+
+/* ══ JAUGES POSTES PAGE 1 ══ */
+.jauge-bloc {
+  background: white; border-radius: 12px; padding: 12px 14px;
+  margin: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-left: 5px solid #1565C0;
+}
+.jauge-bloc-titre {
+  font-size: 13px; font-weight: 800; color: #1565C0;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.jp-poste-row { margin-bottom: 14px; }
+.jp-poste-nom { font-size: 11px; font-weight: 800; color: #333; margin-bottom: 6px; }
+.jp-tournees  { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.jp-t-block   { border-radius: 8px; padding: 6px 8px; }
+.jp-t-block.t1 { background: #E3F2FD; }
+.jp-t-block.t2 { background: #E8F5E9; }
+.jp-t-block.t3 { background: #FFF3E0; border: 1px solid #FFB74D; }
+.jp-t-label   { font-size: 9px; font-weight: bold; margin-bottom: 4px; }
+.jp-t-block.t1 .jp-t-label { color: #1565C0; }
+.jp-t-block.t2 .jp-t-label { color: #2E7D32; }
+.jp-t-block.t3 .jp-t-label { color: #E65100; }
+.jp-t-track   { height: 16px; background: #ddd; border-radius: 8px; overflow: hidden; }
+.jp-t-fill    { height: 100%; border-radius: 8px; transition: width .5s, background .4s; }
+.jp-t-val     { font-size: 10px; font-weight: bold; margin-top: 3px; text-align: right; }
+.jp-t-block.t1 .jp-t-val { color: #1565C0; }
+.jp-t-block.t2 .jp-t-val { color: #2E7D32; }
+.jp-t-block.t3 .jp-t-val { color: #E65100; }
+
+.jp-legende { display:flex; gap:12px; margin-top:8px; padding-top:8px;
+  border-top:1px solid #F0F0F0; flex-wrap:wrap; }
+.jp-leg-item { display:flex; align-items:center; gap:5px; font-size:11px; color:#555; }
+.jp-leg-dot  { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
+
+/* ══ TABLEAU ══ */
+.tournee-header {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr) 180px 140px;
+  background: #E3F2FD; gap: 3px; padding: 6px 4px;
+  font-size: 10px; font-weight: bold; color: #1565C0;
+  text-align: center; border-radius: 8px; margin: 8px 0 6px;
+}
+.tournee-header .th1 { color: #1565C0; }
+.tournee-header .th2 { color: #2E7D32; }
+.tournee-header .th3 { color: #E65100; font-weight: 900; }
+
+/* BLOC POSTE */
+.poste-bloc {
+  background: white; border-radius: 10px; margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); overflow: hidden;
+}
+.poste-titre {
+  background: #1565C0; color: white; padding: 8px 12px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;
+}
+.poste-titre span { font-weight: bold; font-size: 13px; }
+.btn-couleur { border:none; border-radius:6px; padding:4px 12px;
+  font-weight:bold; font-size:11px; color:white; cursor:pointer; }
+.couleur-VERT   { background:#2E7D32; }
+.couleur-ORANGE { background:#FF9800; }
+.couleur-ROUGE  { background:#D32F2F; }
+
+/* LIGNE QUESTION */
+.question-row {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr) 180px 140px;
+  align-items: stretch; gap: 3px; padding: 5px 8px;
+  border-bottom: 1px solid #F5F5F5;
+}
+.q-label { font-size:11px; color:#555; padding:4px 2px;
+  display:flex; align-items:center; line-height:1.3; }
+.q-label.controle { color:#7B1FA2; font-weight:bold; }
+
+/* OUI/NON AVEC JAUGE */
+.oui-non-cell {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:3px; padding:3px;
+}
+.oui-non-cell label { font-size:10px; font-weight:bold; }
+.oui-non-cell.tc1 label { color:#1565C0; }
+.oui-non-cell.tc2 label { color:#2E7D32; }
+.oui-non-cell.tc3 label { color:#E65100; }
+.oui-non-wrap { display:flex; gap:4px; }
+.btn-oui, .btn-non {
+  padding:4px 8px; border:1.5px solid #DDD; border-radius:6px;
+  font-size:10px; font-weight:bold; cursor:pointer; background:white; transition:all .2s;
+}
+.btn-oui:hover, .btn-oui.sel { background:#C8E6C9; border-color:#2E7D32; color:#1B5E20; }
+.btn-non:hover, .btn-non.sel { background:#FFCDD2; border-color:#D32F2F; color:#B71C1C; }
+
+/* Mini jauge inline sous OUI/NON */
+.inline-jauge { width:100%; height:6px; background:#eee; border-radius:3px; overflow:hidden; margin-top:2px; }
+.inline-jauge-fill { height:100%; border-radius:3px; transition:width .3s; }
+
+/* QTÉ */
+.cell-qte { display:flex; align-items:center; justify-content:center; padding:3px; }
+.cell-qte input { width:100%; padding:4px 3px; border:1px solid #DDD;
+  border-radius:6px; font-size:11px; text-align:center; }
+
+/* COMMENTAIRE / SECURITE */
+.comment-cell { display:flex; align-items:stretch; gap:3px; padding:3px; }
+.comment-cell textarea { flex:1; padding:4px; border:1px solid #90CAF9;
+  border-radius:6px; font-size:11px; resize:none; min-height:36px; }
+.secu-cell { display:flex; align-items:stretch; gap:3px; padding:3px; }
+.secu-cell textarea { flex:1; padding:4px; border:1px solid #EF9A9A;
+  border-radius:6px; font-size:11px; resize:none; min-height:36px; color:#D32F2F; }
+.mic-btn { background:none; border:none; font-size:17px; cursor:pointer;
+  padding:2px; align-self:flex-start; }
+
+/* AVANCE ROW — avec 3 jauges T1/T2/T3 */
+.avance-row {
+  padding: 8px 10px; border-top: 2px solid #E3F2FD;
+  background: #F8FBFF;
+}
+.avance-row-top {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;
+}
+.avance-label { font-size:11px; color:#555; flex-shrink:0; }
+.btn-avance { padding:5px 12px; border:none; border-radius:20px;
+  font-size:11px; font-weight:bold; color:white; cursor:pointer; }
+.btn-avance.av  { background:#1565C0; }
+.btn-avance.ok  { background:#2E7D32; }
+.btn-avance.ret { background:#D32F2F; }
+.btn-avance.sel { outline:3px solid #FFD54F; outline-offset:1px; }
+
+/* JAUGES T1/T2/T3 dans chaque poste */
+.poste-tournee-jauges {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 6px;
+}
+.ptj-block { border-radius: 8px; padding: 6px 8px; }
+.ptj-block.t1 { background: #E3F2FD; }
+.ptj-block.t2 { background: #E8F5E9; }
+.ptj-block.t3 { background: #FFF3E0; border: 1px solid #FFB74D; }
+.ptj-label { font-size: 9px; font-weight: bold; margin-bottom: 3px; display:flex; justify-content:space-between; }
+.ptj-block.t1 .ptj-label { color: #1565C0; }
+.ptj-block.t2 .ptj-label { color: #2E7D32; }
+.ptj-block.t3 .ptj-label { color: #E65100; }
+.ptj-track { height: 14px; background: #ddd; border-radius: 7px; overflow: hidden; }
+.ptj-fill  { height: 100%; border-radius: 7px; transition: width .4s, background .3s; }
+.ptj-val   { font-size: 10px; font-weight: bold; text-align:right; margin-top:2px; }
+.ptj-block.t1 .ptj-val { color: #1565C0; }
+.ptj-block.t2 .ptj-val { color: #2E7D32; }
+.ptj-block.t3 .ptj-val { color: #E65100; }
+.ptj-t3-tag { font-size:8px; background:#E65100; color:white;
+  border-radius:3px; padding:1px 4px; }
+
+/* BAS */
+.bottom-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:10px 0; }
+.bottom-card { background:white; border-radius:10px; padding:10px;
+  box-shadow:0 2px 4px rgba(0,0,0,0.06); }
+.bottom-card label { font-size:11px; font-weight:bold; color:#1565C0; display:block; margin-bottom:6px; }
+.bottom-card textarea { width:100%; padding:6px; border:1px solid #DDD;
+  border-radius:6px; font-size:13px; resize:none; height:70px; }
+.bottom-card input { width:100%; padding:6px; border:1px solid #DDD;
+  border-radius:6px; font-size:13px; }
+
+.btn-valider { width:100%; padding:16px; background:#2E7D32; color:white;
+  border:none; border-radius:12px; font-size:16px; font-weight:900;
+  cursor:pointer; margin:10px 0; letter-spacing:1px; }
+
+/* ══ DASHBOARD ══ */
+.dash-header { background:#1565C0; color:white; padding:16px;
+  text-align:center; border-radius:0 0 12px 12px; margin-bottom:12px; }
+.dash-header h2 { font-size:21px; font-weight:900; }
+.dash-header p  { font-size:12px; color:#BBDEFB; margin-top:4px; }
+
+/* ENCOURS LENDEMAIN DASHBOARD */
+.encours-card {
+  background: linear-gradient(135deg, #4A148C, #7B1FA2);
+  color: white; border-radius: 14px; padding: 18px;
+  margin-bottom: 14px; box-shadow: 0 4px 14px rgba(74,20,140,0.3);
+}
+.encours-card h3 { font-size: 13px; opacity: 0.85; margin-bottom: 8px; }
+.encours-card .big { font-size: 48px; font-weight: 900; line-height: 1; }
+.encours-card .unit { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+.encours-card .sub { font-size: 11px; opacity: 0.75; margin-top: 6px;
+  background: rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 10px; }
+
+/* 3 CARTES TOURNÉES DASHBOARD */
+.dash-tournee-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px;
+}
+.dash-t-card { border-radius: 12px; padding: 12px; text-align: center; }
+.dash-t-card.t1 { background: #E3F2FD; border-top: 4px solid #1565C0; }
+.dash-t-card.t2 { background: #E8F5E9; border-top: 4px solid #2E7D32; }
+.dash-t-card.t3 { background: #FFF3E0; border-top: 4px solid #E65100; }
+.dash-t-card h4 { font-size: 11px; font-weight: 800; margin-bottom: 6px; }
+.dash-t-card.t1 h4 { color:#1565C0; }
+.dash-t-card.t2 h4 { color:#2E7D32; }
+.dash-t-card.t3 h4 { color:#E65100; }
+.dash-t-card .val { font-size: 26px; font-weight: 900; }
+.dash-t-card.t1 .val { color:#1565C0; }
+.dash-t-card.t2 .val { color:#2E7D32; }
+.dash-t-card.t3 .val { color:#E65100; }
+.dash-t-card .unit2 { font-size:11px; color:#888; }
+.dash-t-bar { height:10px; background:#ddd; border-radius:5px; overflow:hidden; margin-top:8px; }
+.dash-t-fill { height:100%; border-radius:5px; }
+
+.card { background:white; border-radius:12px; padding:14px; margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.section-title { font-size:13px; font-weight:800; color:#1565C0;
+  margin:12px 0 6px; padding-left:4px; border-left:4px solid #1565C0; }
+.jauge-wrap-d { margin-bottom:12px; }
+.jauge-label-d { font-size:12px; color:#333; margin-bottom:4px;
+  display:flex; justify-content:space-between; }
+.jauge-track-d { height:28px; background:#E0E0E0; border-radius:14px; overflow:hidden; }
+.jauge-fill-d  { height:100%; border-radius:14px; transition:width .6s ease; }
+
+/* POSTE DASHBOARD */
+.poste-dash { background:white; border-radius:10px; margin-bottom:10px;
+  overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.07); }
+.poste-dash-titre { background:#1565C0; color:white; padding:8px 12px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; }
+.badge { padding:3px 10px; border-radius:6px; font-size:10px; font-weight:bold; color:white; }
+.poste-dash-body { padding:10px; }
+.poste-info { font-size:12px; color:#555; margin-top:4px; }
+.secu-alert { color:#D32F2F; font-weight:bold; font-size:12px; margin-top:4px; }
+.comm-info  { color:#1565C0; font-size:12px; font-style:italic; margin-top:4px; }
+
+/* JAUGES T1/T2/T3 DANS POSTE DASHBOARD */
+.dash-poste-t-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:8px 0; }
+.dash-pt-block { border-radius:8px; padding:6px 8px; }
+.dash-pt-block.t1 { background:#E3F2FD; }
+.dash-pt-block.t2 { background:#E8F5E9; }
+.dash-pt-block.t3 { background:#FFF3E0; border:1px solid #FFB74D; }
+.dash-pt-block h5 { font-size:10px; font-weight:800; margin-bottom:4px; }
+.dash-pt-block.t1 h5 { color:#1565C0; }
+.dash-pt-block.t2 h5 { color:#2E7D32; }
+.dash-pt-block.t3 h5 { color:#E65100; }
+.dash-pt-track { height:14px; background:#ddd; border-radius:7px; overflow:hidden; }
+.dash-pt-fill  { height:100%; border-radius:7px; }
+.dash-pt-val   { font-size:10px; font-weight:bold; text-align:right; margin-top:2px; }
+.dash-pt-block.t1 .dash-pt-val { color:#1565C0; }
+.dash-pt-block.t2 .dash-pt-val { color:#2E7D32; }
+.dash-pt-block.t3 .dash-pt-val { color:#E65100; }
+
+.qr-chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; }
+.qr-chip  { padding:3px 8px; border-radius:12px; font-size:10px; font-weight:bold; }
+.qr-oui  { background:#C8E6C9; color:#1B5E20; }
+.qr-non  { background:#FFCDD2; color:#B71C1C; }
+.qr-nd   { background:#F5F5F5; color:#999; }
+.qr-ctrl { background:#EDE7F6; color:#4A148C; }
+
+.btn-email { width:100%; padding:14px; background:#1565C0; color:white;
+  border:none; border-radius:12px; font-size:14px; font-weight:800;
+  cursor:pointer; margin-top:10px; }
+
+/* MODALS */
+.modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.55); z-index:1000; justify-content:center; align-items:flex-start;
+  padding-top:40px; overflow-y:auto; }
+.modal-overlay.open { display:flex; }
+.modal-box { background:white; border-radius:16px; padding:22px;
+  width:90%; max-width:500px; box-shadow:0 8px 32px rgba(0,0,0,0.2);
+  margin: auto; }
+.modal-title { font-size:16px; font-weight:800; color:#1565C0; margin-bottom:12px; }
+.modal-input { width:100%; padding:10px; border:1px solid #90CAF9;
+  border-radius:8px; font-size:14px; margin-bottom:10px; }
+.modal-btns { display:flex; gap:10px; margin-top:12px; }
+.modal-btns button { flex:1; padding:12px; border:none; border-radius:10px;
+  font-size:14px; font-weight:800; color:white; cursor:pointer; }
+.btn-cancel  { background:#EF5350; }
+.btn-confirm { background:#2E7D32; }
+.btn-send    { background:#1565C0; }
+.vocal-result { background:#E8F5E9; border-radius:10px; padding:12px;
+  min-height:60px; margin:10px 0; font-size:14px; color:#333; }
+.vpulse { display:inline-block; width:10px; height:10px; background:#D32F2F;
+  border-radius:50%; margin-right:6px; animation:blink 1s infinite; }
+
+/* APERCU EMAIL */
+.email-preview { background:#F9F9F9; border:1px solid #DDD; border-radius:8px;
+  padding:12px; margin-bottom:10px; max-height:300px; overflow-y:auto; font-size:12px; }
+.ep-title { font-size:13px; font-weight:800; color:#1565C0; margin-bottom:8px;
+  border-bottom:2px solid #E3F2FD; padding-bottom:4px; }
+.ep-encours { background:linear-gradient(135deg,#4A148C,#7B1FA2); color:white;
+  border-radius:10px; padding:10px 14px; margin-bottom:10px; text-align:center; }
+.ep-encours .big { font-size:26px; font-weight:900; }
+.ep-total-box { background:linear-gradient(135deg,#E65100,#FF9800); color:white;
+  border-radius:10px; padding:8px 14px; margin-bottom:8px; text-align:center; }
+.ep-total-box .big { font-size:22px; font-weight:900; }
+.ep-t-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:8px; }
+.ep-t-card { border-radius:8px; padding:8px; text-align:center; }
+.ep-t-card.t1 { background:#E3F2FD; }
+.ep-t-card.t2 { background:#E8F5E9; }
+.ep-t-card.t3 { background:#FFF3E0; border:1px solid #FFB74D; }
+.ep-t-card .ev { font-size:18px; font-weight:900; }
+.ep-t-card.t1 .ev { color:#1565C0; }
+.ep-t-card.t2 .ev { color:#2E7D32; }
+.ep-t-card.t3 .ev { color:#E65100; }
+.ep-t-card .eu { font-size:9px; color:#888; }
+.ep-t-bar { height:8px; background:#ddd; border-radius:4px; overflow:hidden; margin-top:4px; }
+.ep-t-bar-fill { height:100%; border-radius:4px; }
+.ep-poste-header { background:#1565C0; color:white; padding:5px 8px;
+  border-radius:6px 6px 0 0; font-weight:bold; font-size:11px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; }
+.ep-poste-body { border:1px solid #E3F2FD; border-top:none;
+  border-radius:0 0 6px 6px; padding:8px; margin-bottom:8px; }
+.ep-pt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin:6px 0; }
+.ep-pt-block { border-radius:6px; padding:5px 7px; }
+.ep-pt-block.t1 { background:#E3F2FD; }
+.ep-pt-block.t2 { background:#E8F5E9; }
+.ep-pt-block.t3 { background:#FFF3E0; }
+.ep-pt-block .el { font-size:9px; font-weight:bold; }
+.ep-pt-block.t1 .el { color:#1565C0; }
+.ep-pt-block.t2 .el { color:#2E7D32; }
+.ep-pt-block.t3 .el { color:#E65100; }
+.ep-pt-bar { height:8px; background:#ddd; border-radius:4px; overflow:hidden; margin:3px 0; }
+.ep-pt-bar-fill { height:100%; border-radius:4px; }
+.ep-pt-val { font-size:9px; font-weight:bold; text-align:right; }
+.ep-pt-block.t1 .ep-pt-val { color:#1565C0; }
+.ep-pt-block.t2 .ep-pt-val { color:#2E7D32; }
+.ep-pt-block.t3 .ep-pt-val { color:#E65100; }
+.ep-chips { display:flex; flex-wrap:wrap; gap:3px; margin-top:4px; }
+.ep-chip  { padding:2px 6px; border-radius:8px; font-size:9px; font-weight:bold; }
+.ep-chip-oui  { background:#C8E6C9; color:#1B5E20; }
+.ep-chip-non  { background:#FFCDD2; color:#B71C1C; }
+.ep-chip-nd   { background:#F0F0F0; color:#999; }
+.ep-chip-ctrl { background:#EDE7F6; color:#4A148C; }
+.ep-comm { font-size:10px; color:#1565C0; font-style:italic; margin-top:3px; }
+.ep-secu { font-size:10px; color:#D32F2F; font-weight:bold; margin-top:3px; }
+
+@media (max-width:700px) {
+  .tournee-header, .question-row { grid-template-columns:1fr; }
+  .tournee-header { display:none; }
+  .tournee-global-row, .jp-tournees, .poste-tournee-jauges,
+  .dash-tournee-grid, .dash-poste-t-grid, .ep-t-grid, .ep-pt-grid
+    { grid-template-columns:1fr; }
+  .bottom-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>📋 Suivi Tournée Planche</h1>
+  <p>Fréquence : 4 fois par jour</p>
+  <div class="header-row">
+    <div class="header-field">
+      <label>Date :</label>
+      <input type="date" id="inp-date">
+    </div>
+    <div class="header-field">
+      <label>Absence :</label>
+      <input type="text" id="inp-absence" placeholder="—">
+    </div>
+    <div class="header-field">
+      <label>Besoin formation :</label>
+      <input type="text" id="inp-formation" placeholder="—">
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="active" onclick="showScreen('suivi',this)">📋 Suivi</button>
+  <button onclick="showScreen('dashboard',this)">📊 Bilan & Encours</button>
+</div>
+
+<!-- ══════════ ÉCRAN SUIVI ══════════ -->
+<div id="screen-suivi" class="screen active">
+
+  <!-- ENCOURS LENDEMAIN LIVE -->
+  <div class="encours-banner" id="encours-banner-live">
+    <div>
+      <h3>📦 ENCOURS LENDEMAIN MATIN (T3 — Fin de poste)</h3>
+      <div class="big" id="encours-live-val">0.00</div>
+      <div class="unit">jours &nbsp;|&nbsp; <span id="encours-live-h">0.0 h</span></div>
+    </div>
+    <div class="encours-badge" id="encours-live-detail">
+      T3 non encore renseignée
+    </div>
+  </div>
+
+  <!-- CARTES T1 / T2 / T3 GLOBALES -->
+  <div class="temps-total-bloc">
+    <div class="temps-total-titre">
+      <span class="dot-blink" style="background:#E65100"></span>
+      ⏱ TEMPS DE PASSAGE PAR TOURNÉE
+    </div>
+    <div class="tournee-global-row">
+      <div class="tournee-card t1">
+        <h4>🔵 TOURNÉE 1</h4>
+        <div class="val" id="t1-total">0.00</div>
+        <div class="unit">jours</div>
+        <div class="mini-jauge-track">
+          <div class="mini-jauge-fill" id="t1-bar" style="width:0%;background:#1565C0"></div>
+        </div>
+      </div>
+      <div class="tournee-card t2">
+        <h4>🟢 TOURNÉE 2</h4>
+        <div class="val" id="t2-total">0.00</div>
+        <div class="unit">jours</div>
+        <div class="mini-jauge-track">
+          <div class="mini-jauge-fill" id="t2-bar" style="width:0%;background:#2E7D32"></div>
+        </div>
+      </div>
+      <div class="tournee-card t3" style="position:relative">
+        <span class="t3-badge">ENCOURS J+1</span>
+        <h4>🟠 TOURNÉE 3</h4>
+        <div class="val" id="t3-total">0.00</div>
+        <div class="unit">jours</div>
+        <div class="mini-jauge-track">
+          <div class="mini-jauge-fill" id="t3-bar" style="width:0%;background:#E65100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAUGES PAR POSTE -->
+  <div class="jauge-bloc">
+    <div class="jauge-bloc-titre">
+      <span class="dot-blink"></span>
+      📊 JAUGES T1 / T2 / T3 PAR POSTE
+    </div>
+    <div id="jp-container"></div>
+    <div class="jp-legende">
+      <div class="jp-leg-item"><div class="jp-leg-dot" style="background:#2E7D32"></div>OUI / Avance</div>
+      <div class="jp-leg-item"><div class="jp-leg-dot" style="background:#D32F2F"></div>NON / Retard</div>
+      <div class="jp-leg-item"><div class="jp-leg-dot" style="background:#9E9E9E"></div>Non renseigné</div>
+      <div class="jp-leg-item"><div class="jp-leg-dot" style="background:#FFB74D;border:1px solid #E65100"></div>T3 = Encours J+1</div>
+    </div>
+  </div>
+
+  <!-- EN-TÊTE COLONNES -->
+  <div class="tournee-header">
+    <div>POSTE / QUESTIONS</div>
+    <div class="th1">🔵 TOURNÉE 1</div>
+    <div class="th2">🟢 TOURNÉE 2</div>
+    <div class="th3">🟠 TOURNÉE 3 ★</div>
+    <div>COMMENTAIRE / ACTION</div>
+    <div style="color:#D32F2F">PROBLÈMES SÉCURITÉ</div>
+  </div>
+
+  <div id="postes-container"></div>
+
+  <!-- BAS -->
+  <div class="bottom-grid">
+    <div class="bottom-card">
+      <label>⏱ TEMPS DE PASSAGE</label>
+      <textarea id="inp-temps" placeholder="Saisir..."></textarea>
+    </div>
+    <div class="bottom-card">
+      <label>🤝 DÉCISIONS D'ENTRAIDE</label>
+      <textarea id="inp-decisions" placeholder="Saisir..."></textarea>
+    </div>
+    <div class="bottom-card">
+      <label>👥 EFFECTIF</label>
+      <input type="number" id="inp-effectif" placeholder="Nombre">
+    </div>
+  </div>
+
+  <button class="btn-valider" onclick="valider()">✅ VALIDER LA TOURNÉE</button>
+</div>
+
+<!-- ══════════ ÉCRAN DASHBOARD ══════════ -->
+<div id="screen-dashboard" class="screen">
+  <div id="dashboard-content"></div>
+  <button class="btn-email" onclick="openEmailModal()">📧 ENVOYER PAR EMAIL</button>
+</div>
+
+<!-- MODAL VOCAL -->
+<div class="modal-overlay" id="modal-vocal">
+  <div class="modal-box">
+    <div class="modal-title" id="vocal-title">🎙️ Saisie Vocale</div>
+    <div style="font-size:11px;color:#888;margin-bottom:6px" id="vocal-poste-label"></div>
+    <div class="vocal-result">
+      <span class="vpulse" id="vpulse"></span>
+      <span id="vocal-text">Parlez maintenant...</span>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="cancelVoice()">❌ Annuler</button>
+      <button class="btn-confirm" onclick="confirmVoice()">✅ Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VALIDATION -->
+<div class="modal-overlay" id="modal-valid">
+  <div class="modal-box">
+    <div class="modal-title">✅ Tournée validée !</div>
+    <p style="color:#555;margin-bottom:14px">Accéder au bilan et à l'encours J+1 ?</p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-valid')">Rester</button>
+      <button class="btn-confirm" onclick="goToDashboard()">📊 Voir le bilan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EMAIL -->
+<div class="modal-overlay" id="modal-email">
+  <div class="modal-box" style="max-width:540px;">
+    <div class="modal-title">📧 Aperçu & Envoi du bilan</div>
+    <input class="modal-input" id="email-to" type="email" placeholder="Destinataire : votre@email.com">
+    <input class="modal-input" id="email-subject" type="text" placeholder="Objet">
+    <div class="email-preview" id="email-preview-zone"></div>
+    <p style="font-size:10px;color:#888;margin-bottom:8px;">
+      ℹ️ Aperçu visuel — le mail sera envoyé en texte structuré.
+    </p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-email')">❌ Annuler</button>
+      <button class="btn-send" onclick="sendEmail()">📤 Ouvrir Boîte Mail</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONSTANTES
+// ═══════════════════════════════════════════
+const TOURNEES = ['T1','T2','T3'];
+const T_COLORS = { T1:'#1565C0', T2:'#2E7D32', T3:'#E65100' };
+const T_CSS    = { T1:'t1', T2:'t2', T3:'t3' };
+
+// Valeurs en jours par état
+const ETAT_CFG = {
+  avance:{ v:0.25, col:'#1565C0', label:'⬆ Avance', cls:'etat-avance' },
+  ok    :{ v:0.50, col:'#2E7D32', label:'✅ OK',     cls:'etat-ok'     },
+  retard:{ v:0.75, col:'#D32F2F', label:'⬇ Retard', cls:'etat-retard' },
+  ''    :{ v:0,    col:'#E0E0E0', label:'— —',       cls:'etat-none'   },
+};
+
+// ═══════════════════════════════════════════
+// POSTES CONFIG
+// ═══════════════════════════════════════════
+const POSTES_CONFIG = [
+  {
+    id:'DEBIT', nom:'DÉBIT',
+    questions:[
+      { id:'pb_qualite',    label:'Problème qualité ?',                     type:'ouinon' },
+      { id:'ctrl_chariots', label:'🔍 Contrôle chariots usinage ?',         type:'ouinon', ctrl:true },
+      { id:'ctrl_films',    label:'🔍 Contrôle pose films de protection ?',  type:'ouinon', ctrl:true },
+      { id:'avance_ok',     label:'Mon avance est-elle respectée ?',         type:'ouinon' },
+    ]
+  },
+  {
+    id:'DEBIT_ACC', nom:'DÉBIT ACCESSOIRE',
+    questions:[
+      { id:'pb_qualite', label:'Problème qualité ?',              type:'ouinon' },
+      { id:'avance_ok',  label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+  {
+    id:'SERTISSAGE', nom:'SERTISSAGE',
+    questions:[
+      { id:'pb_qualite',   label:'Problème qualité ?',              type:'ouinon' },
+      { id:'ctrl_coupes',  label:'🔍 Contrôle des coupes ?',        type:'ouinon', ctrl:true },
+      { id:'qte_produite', label:'Quantité produite / objectif ?',  type:'qte'    },
+      { id:'avance_ok',    label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+  {
+    id:'MONTAGE_ACC', nom:'MONTAGE ACCESSOIRE',
+    questions:[
+      { id:'pb_qualite',   label:'Problème qualité ?',              type:'ouinon' },
+      { id:'qte_produite', label:'Quantité produite / objectif ?',  type:'qte'    },
+      { id:'avance_ok',    label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+  {
+    id:'FERRAGE', nom:'FERRAGE OUVRANT',
+    questions:[
+      { id:'pb_qualite',   label:'Problème qualité ?',              type:'ouinon' },
+      { id:'qte_produite', label:'Quantité produite / objectif ?',  type:'qte'    },
+      { id:'avance_ok',    label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+  {
+    id:'MISE_EN_BOIS', nom:'MISE EN BOIS',
+    questions:[
+      { id:'pb_qualite',   label:'Problème qualité ?',              type:'ouinon' },
+      { id:'qte_produite', label:'Quantité produite / objectif ?',  type:'qte'    },
+      { id:'avance_ok',    label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+  {
+    id:'VITRAGE', nom:'VITRAGE / VOLET',
+    questions:[
+      { id:'pb_qualite',   label:'Problème qualité ?',              type:'ouinon' },
+      { id:'qte_produite', label:'Quantité produite / objectif ?',  type:'qte'    },
+      { id:'avance_ok',    label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+  {
+    id:'EMBALLAGE', nom:'EMBALLAGE',
+    questions:[
+      { id:'pb_qualite',   label:'Problème qualité ?',              type:'ouinon' },
+      { id:'ctrl_colis',   label:"🔍 Contrôle d'un colis ?",        type:'ouinon', ctrl:true },
+      { id:'qte_produite', label:'Quantité produite / objectif ?',  type:'qte'    },
+      { id:'avance_ok',    label:'Mon avance est-elle respectée ?', type:'ouinon' },
+    ]
+  },
+];
+
+const COULMAP = { VERT:'#2E7D32', ORANGE:'#FF9800', ROUGE:'#D32F2F' };
+
+// ═══════════════════════════════════════════
+// DONNÉES — avance par poste ET par tournée
+// ═══════════════════════════════════════════
+let appData = {
+  date:'', absence:'', formation:'',
+  effectif:'', temps:'', decisions:'',
+  postes:{}
+};
+
+POSTES_CONFIG.forEach(p => {
+  appData.postes[p.id] = {
+    couleur:'VERT',
+    // avance par tournée : T1/T2/T3 indépendants
+    avanceT: { T1:'', T2:'', T3:'' },
+    reponses:{}, qtes:{}, comms:{}, secus:{}
+  };
+  p.questions.forEach(q => {
+    TOURNEES.forEach(t => {
+      appData.postes[p.id].reponses[q.id+'_'+t] = '';
+    });
+    if (q.type==='qte') TOURNEES.forEach(t => { appData.postes[p.id].qtes[t]=''; });
+  });
+});
+
+document.getElementById('inp-date').value = new Date().toISOString().split('T')[0];
+
+// ═══════════════════════════════════════════
+// CALCUL TEMPS PAR TOURNÉE
+// ═══════════════════════════════════════════
+function calcTourneeTotal(tournee) {
+  let total = 0;
+  POSTES_CONFIG.forEach(p => {
+    const av  = appData.postes[p.id].avanceT[tournee] || '';
+    const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+    total += cfg.v;
+  });
+  return Math.round(total * 100) / 100;
+}
+
+function getMaxTotal() {
+  // max théorique = nb postes × 0.75
+  return POSTES_CONFIG.length * 0.75;
+}
+
+// ═══════════════════════════════════════════
+// MISE À JOUR GLOBALE
+// ═══════════════════════════════════════════
+function updateAll() {
+  const t1 = calcTourneeTotal('T1');
+  const t2 = calcTourneeTotal('T2');
+  const t3 = calcTourneeTotal('T3');
+  const max = getMaxTotal();
+
+  // Cartes globales
+  document.getElementById('t1-total').textContent = t1.toFixed(2);
+  document.getElementById('t2-total').textContent = t2.toFixed(2);
+  document.getElementById('t3-total').textContent = t3.toFixed(2);
+  document.getElementById('t1-bar').style.width = Math.min((t1/max)*100,100)+'%';
+  document.getElementById('t2-bar').style.width = Math.min((t2/max)*100,100)+'%';
+  document.getElementById('t3-bar').style.width = Math.min((t3/max)*100,100)+'%';
+
+  // Encours lendemain (T3)
+  document.getElementById('encours-live-val').textContent = t3.toFixed(2);
+  document.getElementById('encours-live-h').textContent   = (t3*8).toFixed(1)+' h';
+
+  const t3Postes = POSTES_CONFIG.filter(p=>appData.postes[p.id].avanceT['T3']!=='').length;
+  document.getElementById('encours-live-detail').innerHTML =
+    t3Postes === 0
+      ? 'T3 non encore renseignée'
+      : `${t3Postes}/${POSTES_CONFIG.length} postes renseignés en T3`;
+
+  // Jauges postes
+  buildJaugesPostes();
+}
+
+// ═══════════════════════════════════════════
+// JAUGES PAR POSTE (T1/T2/T3)
+// ═══════════════════════════════════════════
+function buildJaugesPostes() {
+  const c = document.getElementById('jp-container');
+  if (!c) return;
+  c.innerHTML = '';
+
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+    let tHTML = '<div class="jp-tournees">';
+
+    TOURNEES.forEach(t => {
+      const av  = d.avanceT[t] || '';
+      const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+      const pct = cfg.v * 100;
+      const isT3 = t === 'T3';
+      tHTML += `
+        <div class="jp-t-block ${T_CSS[t]}">
+          <div class="jp-t-label">
+            ${t === 'T1' ? '🔵' : t === 'T2' ? '🟢' : '🟠'} ${t}
+            ${isT3 ? '<span style="font-size:8px;background:#E65100;color:white;border-radius:3px;padding:1px 3px">J+1</span>' : ''}
+          </div>
+          <div class="jp-t-track">
+            <div class="jp-t-fill" style="width:${pct}%;background:${cfg.col}"></div>
+          </div>
+          <div class="jp-t-val">${cfg.v > 0 ? cfg.v.toFixed(2)+' j' : '—'}</div>
+        </div>`;
+    });
+    tHTML += '</div>';
+
+    c.innerHTML += `
+      <div class="jp-poste-row">
+        <div class="jp-poste-nom">${p.nom}</div>
+        ${tHTML}
+      </div>`;
+  });
+}
+
+// ═══════════════════════════════════════════
+// CONSTRUCTION POSTES — boutons par tournée
+// ═══════════════════════════════════════════
+function buildPostes() {
+  const container = document.getElementById('postes-container');
+  container.innerHTML = '';
+
+  POSTES_CONFIG.forEach(p => {
+    const pid = p.id;
+    let qHTML = '';
+
+    p.questions.forEach(q => {
+      let cellsHTML = '';
+      const isCtrl = q.ctrl === true;
+      const tcls = ['tc1','tc2','tc3'];
+
+      if (q.type === 'ouinon') {
+        TOURNEES.forEach((t, ti) => {
+          const col = T_COLORS[t];
+          cellsHTML += `
+            <div class="oui-non-cell ${tcls[ti]}">
+              <label>${ti===2?'🟠':''}${ti===0?'🔵':''}${ti===1?'🟢':''} ${t}${t==='T3'?' ★':''}</label>
+              <div class="oui-non-wrap">
+                <button class="btn-oui" id="oui-${pid}-${q.id}-${t}"
+                  onclick="setRep('${pid}','${q.id}','${t}','oui')">OUI</button>
+                <button class="btn-non" id="non-${pid}-${q.id}-${t}"
+                  onclick="setRep('${pid}','${q.id}','${t}','non')">NON</button>
+              </div>
+              <div class="inline-jauge">
+                <div class="inline-jauge-fill" id="ij-${pid}-${q.id}-${t}"
+                  style="width:0%;background:${col}"></div>
+              </div>
+            </div>`;
+        });
+      } else if (q.type === 'qte') {
+        TOURNEES.forEach((t, ti) => {
+          cellsHTML += `
+            <div class="cell-qte">
+              <input type="text" placeholder="${t}: ex 45/50"
+                oninput="appData.postes['${pid}'].qtes['${t}']=this.value"
+                style="border-color:${T_COLORS[t]}">
+            </div>`;
+        });
+      }
+
+      qHTML += `
+        <div class="question-row" style="${isCtrl?'background:#FAF3FF;':''}">
+          <div class="q-label ${isCtrl?'controle':''}">${q.label}</div>
+          ${cellsHTML}
+          <div class="comment-cell">
+            <textarea id="comm-${pid}-${q.id}" placeholder="Commentaire / Action..."
+              oninput="appData.postes['${pid}'].comms['${q.id}']=this.value"></textarea>
+            <button class="mic-btn" onclick="startVoice('${pid}','comm_${q.id}')">🎙️</button>
+          </div>
+          <div class="secu-cell">
+            <textarea id="secu-${pid}-${q.id}" placeholder="Sécurité..."
+              oninput="appData.postes['${pid}'].secus['${q.id}']=this.value"></textarea>
+            <button class="mic-btn" onclick="startVoice('${pid}','secu_${q.id}')">🎙️</button>
+          </div>
+        </div>`;
+    });
+
+    // Zone avance par tournée
+    let avHTML = '<div class="poste-tournee-jauges">';
+    TOURNEES.forEach((t, ti) => {
+      const col = T_COLORS[t];
+      avHTML += `
+        <div class="ptj-block ${T_CSS[t]}">
+          <div class="ptj-label">
+            <span>${ti===0?'🔵':ti===1?'🟢':'🟠'} ${t}${t==='T3'?' ★':''}</span>
+            <span id="ptj-badge-${pid}-${t}" style="font-size:9px;color:#999">—</span>
+          </div>
+          <div style="display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap">
+            <button onclick="setAvanceT('${pid}','${t}','avance')"
+              id="bav-${pid}-${t}"
+              style="padding:3px 8px;border:none;border-radius:12px;font-size:10px;
+                     font-weight:bold;color:white;background:#1565C0;cursor:pointer">
+              ⬆ Avance
+            </button>
+            <button onclick="setAvanceT('${pid}','${t}','ok')"
+              id="bok-${pid}-${t}"
+              style="padding:3px 8px;border:none;border-radius:12px;font-size:10px;
+                     font-weight:bold;color:white;background:#2E7D32;cursor:pointer">
+              ✅ OK
+            </button>
+            <button onclick="setAvanceT('${pid}','${t}','retard')"
+              id="bret-${pid}-${t}"
+              style="padding:3px 8px;border:none;border-radius:12px;font-size:10px;
+                     font-weight:bold;color:white;background:#D32F2F;cursor:pointer">
+              ⬇ Retard
+            </button>
+          </div>
+          <div class="ptj-track">
+            <div class="ptj-fill" id="ptj-fill-${pid}-${t}"
+              style="width:0%;background:${col}"></div>
+          </div>
+          <div class="ptj-val" id="ptj-val-${pid}-${t}">— j</div>
+        </div>`;
+    });
+    avHTML += '</div>';
+
+    const bloc = document.createElement('div');
+    bloc.className = 'poste-bloc';
+    bloc.innerHTML = `
+      <div class="poste-titre">
+        <span>${p.nom}</span>
+        <button class="btn-couleur couleur-VERT" id="bcoul-${pid}"
+          onclick="toggleCouleur('${pid}')">VERT</button>
+      </div>
+      ${qHTML}
+      <div class="avance-row">
+        <div class="avance-row-top">
+          <span class="avance-label">Avance maîtrisée par tournée :</span>
+        </div>
+        ${avHTML}
+      </div>`;
+    container.appendChild(bloc);
+  });
+}
+
+// ═══════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════
+function setRep(pid, qid, t, val) {
+  appData.postes[pid].reponses[qid+'_'+t] = val;
+  const o = document.getElementById('oui-'+pid+'-'+qid+'-'+t);
+  const n = document.getElementById('non-'+pid+'-'+qid+'-'+t);
+  if (o) o.classList.toggle('sel', val==='oui');
+  if (n) n.classList.toggle('sel', val==='non');
+  // Mise à jour mini jauge inline
+  const ij = document.getElementById('ij-'+pid+'-'+qid+'-'+t);
+  if (ij) {
+    ij.style.width   = val==='oui' ? '100%' : val==='non' ? '0%' : '50%';
+    ij.style.background = val==='oui' ? '#2E7D32' : val==='non' ? '#D32F2F' : '#9E9E9E';
+  }
+}
+
+function setAvanceT(pid, t, val) {
+  appData.postes[pid].avanceT[t] = val;
+  const cfg = ETAT_CFG[val] || ETAT_CFG[''];
+
+  // Boutons
+  [['avance','bav'],['ok','bok'],['retard','bret']].forEach(([o,k]) => {
+    const el = document.getElementById(k+'-'+pid+'-'+t);
+    if (el) el.style.outline = o===val ? '3px solid #FFD54F' : 'none';
+  });
+
+  // Jauge poste
+  const fill = document.getElementById('ptj-fill-'+pid+'-'+t);
+  const valEl = document.getElementById('ptj-val-'+pid+'-'+t);
+  const badge = document.getElementById('ptj-badge-'+pid+'-'+t);
+  if (fill) { fill.style.width = (cfg.v*100)+'%'; fill.style.background = cfg.col; }
+  if (valEl) valEl.textContent = cfg.v > 0 ? cfg.v.toFixed(2)+' j' : '— j';
+  if (badge) { badge.textContent = val.toUpperCase(); badge.style.color = cfg.col; }
+
+  updateAll();
+}
+
+function toggleCouleur(pid) {
+  const ordre = ['VERT','ORANGE','ROUGE'];
+  const cur = appData.postes[pid].couleur;
+  const nxt = ordre[(ordre.indexOf(cur)+1)%3];
+  appData.postes[pid].couleur = nxt;
+  const btn = document.getElementById('bcoul-'+pid);
+  btn.textContent = nxt;
+  btn.className = 'btn-couleur couleur-'+nxt;
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function showScreen(name, btn) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// VALIDATION
+// ═══════════════════════════════════════════
+function valider() {
+  appData.date      = document.getElementById('inp-date').value;
+  appData.absence   = document.getElementById('inp-absence').value;
+  appData.formation = document.getElementById('inp-formation').value;
+  appData.effectif  = document.getElementById('inp-effectif').value;
+  appData.temps     = document.getElementById('inp-temps').value;
+  appData.decisions = document.getElementById('inp-decisions').value;
+  openModal('modal-valid');
+}
+
+function goToDashboard() {
+  closeModal('modal-valid');
+  buildDashboard();
+  showScreen('dashboard', document.querySelectorAll('.nav button')[1]);
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+function buildDashboard() {
+  const t1 = calcTourneeTotal('T1');
+  const t2 = calcTourneeTotal('T2');
+  const t3 = calcTourneeTotal('T3');
+  const max = getMaxTotal();
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+
+  const avPct = { avance:100, ok:60, retard:20 };
+  const avCol = { avance:'#1565C0', ok:'#2E7D32', retard:'#D32F2F' };
+
+  let html = `
+    <div class="dash-header">
+      <h2>📊 BILAN TOURNÉE</h2>
+      <p>📅 ${dateAff} &nbsp;|&nbsp; 👥 ${appData.effectif||'—'} pers.</p>
+      <p>🚫 Absence : ${appData.absence||'—'} &nbsp;|&nbsp; 📚 Formation : ${appData.formation||'—'}</p>
+    </div>
+
+    <!-- ENCOURS LENDEMAIN — T3 -->
+    <div class="encours-card">
+      <h3>📦 ENCOURS LENDEMAIN MATIN — Basé sur T3 (fin de poste)</h3>
+      <div class="big">${t3.toFixed(2)}</div>
+      <div class="unit">jours &nbsp;=&nbsp; ${(t3*8).toFixed(1)} heures</div>
+      <div class="sub">
+        ⚠️ La T3 est l'état figé en fin de poste.<br>
+        C'est l'encours de référence pour le lendemain matin.
+      </div>
+    </div>
+
+    <!-- 3 CARTES TOURNÉES -->
+    <div class="dash-tournee-grid">
+      <div class="dash-t-card t1">
+        <h4>🔵 TOURNÉE 1</h4>
+        <div class="val">${t1.toFixed(2)}</div>
+        <div class="unit2">jours &nbsp;|&nbsp; ${(t1*8).toFixed(1)} h</div>
+        <div class="dash-t-bar">
+          <div class="dash-t-fill" style="width:${Math.min((t1/max)*100,100)}%;background:#1565C0"></div>
+        </div>
+      </div>
+      <div class="dash-t-card t2">
+        <h4>🟢 TOURNÉE 2</h4>
+        <div class="val">${t2.toFixed(2)}</div>
+        <div class="unit2">jours &nbsp;|&nbsp; ${(t2*8).toFixed(1)} h</div>
+        <div class="dash-t-bar">
+          <div class="dash-t-fill" style="width:${Math.min((t2/max)*100,100)}%;background:#2E7D32"></div>
+        </div>
+      </div>
+      <div class="dash-t-card t3">
+        <h4>🟠 TOURNÉE 3 ★ ENCOURS J+1</h4>
+        <div class="val">${t3.toFixed(2)}</div>
+        <div class="unit2">jours &nbsp;|&nbsp; ${(t3*8).toFixed(1)} h</div>
+        <div class="dash-t-bar">
+          <div class="dash-t-fill" style="width:${Math.min((t3/max)*100,100)}%;background:#E65100"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-title">📌 Détail par poste — T1 / T2 / T3</p>`;
+
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+
+    // Jauges T1/T2/T3 avance par poste
+    let ptGrid = '<div class="dash-poste-t-grid">';
+    TOURNEES.forEach(t => {
+      const av  = d.avanceT[t] || '';
+      const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+      const pct = cfg.v * 100;
+      const isT3 = t==='T3';
+      ptGrid += `
+        <div class="dash-pt-block ${T_CSS[t]}">
+          <h5>${t==='T1'?'🔵':t==='T2'?'🟢':'🟠'} ${t}${isT3?' ★':''}</h5>
+          <div class="dash-pt-track">
+            <div class="dash-pt-fill" style="width:${pct}%;background:${cfg.col}"></div>
+          </div>
+          <div class="dash-pt-val">${cfg.v>0?cfg.v.toFixed(2)+' j':'—'}</div>
+          <div style="font-size:9px;color:${cfg.col};font-weight:bold;text-align:center;margin-top:2px">
+            ${av?av.toUpperCase():'—'}
+          </div>
+        </div>`;
+    });
+    ptGrid += '</div>';
+
+    // Chips réponses
+    let chips = '<div class="qr-chips">';
+    p.questions.forEach(q => {
+      if (q.type==='ouinon') {
+        TOURNEES.forEach(t => {
+          const rep = d.reponses[q.id+'_'+t]||'';
+          const isCtrl = q.ctrl===true;
+          const cls = isCtrl?'qr-ctrl':rep==='oui'?'qr-oui':rep==='non'?'qr-non':'qr-nd';
+          const lbl = q.label.replace('🔍 ','').replace('?','').trim().substring(0,13);
+          chips += `<span class="qr-chip ${cls}">${lbl} ${t}: ${rep||'—'}</span>`;
+        });
+      }
+    });
+    chips += '</div>';
+
+    let qteH='', commH='', secuH='';
+    if (Object.values(d.qtes||{}).some(v=>v)) {
+      qteH='<p class="poste-info">📦 Qté : '+
+        TOURNEES.map(t=>d.qtes[t]?`${t}:${d.qtes[t]}`:'').filter(Boolean).join(' | ')+'</p>';
+    }
+    Object.values(d.comms||{}).forEach(v=>{if(v.trim()) commH+=`<p class="comm-info">💬 ${v}</p>`;});
+    Object.values(d.secus||{}).forEach(v=>{if(v.trim()) secuH+=`<p class="secu-alert">⚠️ ${v}</p>`;});
+
+    html += `
+      <div class="poste-dash">
+        <div class="poste-dash-titre">
+          <span>${p.nom}</span>
+          <span class="badge" style="background:${COULMAP[d.couleur]||'#9E9E9E'}">${d.couleur}</span>
+        </div>
+        <div class="poste-dash-body">
+          ${ptGrid}
+          ${chips}
+          ${qteH}${commH}${secuH}
+        </div>
+      </div>`;
+  });
+
+  if (appData.temps)
+    html+=`<p class="section-title">⏱ Temps de passage</p>
+           <div class="card"><p style="font-size:13px">${appData.temps}</p></div>`;
+  if (appData.decisions)
+    html+=`<p class="section-title">🤝 Décisions d'entraide</p>
+           <div class="card"><p style="font-size:13px">${appData.decisions}</p></div>`;
+
+  document.getElementById('dashboard-content').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+// EMAIL
+// ═══════════════════════════════════════════
+function openEmailModal() {
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+  document.getElementById('email-subject').value = `Suivi Tournée Planche — ${dateAff}`;
+  document.getElementById('email-to').value = '';
+
+  const t1 = calcTourneeTotal('T1');
+  const t2 = calcTourneeTotal('T2');
+  const t3 = calcTourneeTotal('T3');
+  const max = getMaxTotal();
+  const avPct = { avance:100, ok:60, retard:20 };
+  const avCol = { avance:'#1565C0', ok:'#2E7D32', retard:'#D32F2F' };
+
+  let preview = `
+    <div class="ep-section">
+      <div class="ep-title">📋 SUIVI TOURNÉE PLANCHE — ${dateAff}</div>
+      <p style="font-size:11px;color:#555;margin-bottom:8px">
+        👥 ${appData.effectif||'—'} pers. &nbsp;|&nbsp;
+        🚫 Absence : ${appData.absence||'—'} &nbsp;|&nbsp;
+        📚 Formation : ${appData.formation||'—'}
+      </p>
+      <!-- ENCOURS -->
+      <div class="ep-encours">
+        <div class="lbl" style="font-size:11px;opacity:.85">📦 ENCOURS LENDEMAIN (T3 — fin de poste)</div>
+        <div class="big">${t3.toFixed(2)} jours = ${(t3*8).toFixed(1)} h</div>
+      </div>
+      <!-- 3 CARTES -->
+      <div class="ep-t-grid">
+        <div class="ep-t-card t1">
+          <div style="font-size:10px;font-weight:800;color:#1565C0">🔵 T1</div>
+          <div class="ev">${t1.toFixed(2)}</div>
+          <div class="eu">jours</div>
+          <div class="ep-t-bar">
+            <div class="ep-t-bar-fill" style="width:${Math.min((t1/max)*100,100)}%;background:#1565C0"></div>
+          </div>
+        </div>
+        <div class="ep-t-card t2">
+          <div style="font-size:10px;font-weight:800;color:#2E7D32">🟢 T2</div>
+          <div class="ev">${t2.toFixed(2)}</div>
+          <div class="eu">jours</div>
+          <div class="ep-t-bar">
+            <div class="ep-t-bar-fill" style="width:${Math.min((t2/max)*100,100)}%;background:#2E7D32"></div>
+          </div>
+        </div>
+        <div class="ep-t-card t3">
+          <div style="font-size:10px;font-weight:800;color:#E65100">🟠 T3 ★</div>
+          <div class="ev">${t3.toFixed(2)}</div>
+          <div class="eu">jours</div>
+          <div class="ep-t-bar">
+            <div class="ep-t-bar-fill" style="width:${Math.min((t3/max)*100,100)}%;background:#E65100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ep-title">📌 Détail par poste</div>`;
+
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+
+    let ptGrid = '<div class="ep-pt-grid">';
+    TOURNEES.forEach(t => {
+      const av  = d.avanceT[t] || '';
+      const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+      ptGrid += `
+        <div class="ep-pt-block ${T_CSS[t]}">
+          <div class="el">${t==='T1'?'🔵':t==='T2'?'🟢':'🟠'} ${t}${t==='T3'?' ★':''}</div>
+          <div class="ep-pt-bar">
+            <div class="ep-pt-bar-fill" style="width:${cfg.v*100}%;background:${cfg.col}"></div>
+          </div>
+          <div class="ep-pt-val">${cfg.v>0?cfg.v.toFixed(2)+' j':'—'}</div>
+        </div>`;
+    });
+    ptGrid += '</div>';
+
+    let chips = '<div class="ep-chips">';
+    p.questions.forEach(q => {
+      if (q.type==='ouinon') {
+        TOURNEES.forEach(t => {
+          const rep = d.reponses[q.id+'_'+t]||'';
+          const isCtrl = q.ctrl===true;
+          const cls = isCtrl?'ep-chip-ctrl':rep==='oui'?'ep-chip-oui':rep==='non'?'ep-chip-non':'ep-chip-nd';
+          const lbl = q.label.replace('🔍 ','').replace('?','').trim().substring(0,12);
+          chips += `<span class="ep-chip ${cls}">${lbl} ${t}: ${rep||'—'}</span>`;
+        });
+      }
+    });
+    chips += '</div>';
+
+    let qteH='', commH='', secuH='';
+    if (Object.values(d.qtes||{}).some(v=>v)) {
+      qteH='<p style="font-size:10px;color:#555;margin-top:3px">📦 '+
+        TOURNEES.map(t=>d.qtes[t]?`${t}:${d.qtes[t]}`:'').filter(Boolean).join(' | ')+'</p>';
+    }
+    Object.values(d.comms||{}).forEach(v=>{if(v.trim()) commH+=`<p class="ep-comm">💬 ${v}</p>`;});
+    Object.values(d.secus||{}).forEach(v=>{if(v.trim()) secuH+=`<p class="ep-secu">⚠️ ${v}</p>`;});
+
+    preview += `
+      <div class="ep-poste-header">
+        <span>${p.nom}</span>
+        <span style="background:${COULMAP[d.couleur]||'#9E9E9E'};padding:2px 8px;
+          border-radius:4px;font-size:10px">${d.couleur}</span>
+      </div>
+      <div class="ep-poste-body">
+        ${ptGrid}${chips}${qteH}${commH}${secuH}
+      </div>`;
+  });
+
+  document.getElementById('email-preview-zone').innerHTML = preview;
+  openModal('modal-email');
+}
+
+function sendEmail() {
+  const to  = document.getElementById('email-to').value.trim();
+  const sub = document.getElementById('email-subject').value;
+  if (!to||!to.includes('@')) { alert('❌ Adresse email invalide'); return; }
+
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+  const t1 = calcTourneeTotal('T1');
+  const t2 = calcTourneeTotal('T2');
+  const t3 = calcTourneeTotal('T3');
+  const bar = v => '[' + '█'.repeat(Math.round(v/0.75*10)) + '░'.repeat(10-Math.round(v/0.75*10)) + ']';
+
+  let body = `SUIVI TOURNÉE PLANCHE — ${dateAff}\n${'═'.repeat(52)}\n`;
+  body += `Effectif: ${appData.effectif||'—'}  |  Absence: ${appData.absence||'—'}  |  Formation: ${appData.formation||'—'}\n\n`;
+  body += `📦 ENCOURS LENDEMAIN MATIN (T3 — fin de poste)\n`;
+  body += `   ${t3.toFixed(2)} jours = ${(t3*8).toFixed(1)} heures\n\n`;
+  body += `⏱ TEMPS PAR TOURNÉE\n`;
+  body += `   T1 ${bar(t1)} ${t1.toFixed(2)} j (${(t1*8).toFixed(1)} h)\n`;
+  body += `   T2 ${bar(t2)} ${t2.toFixed(2)} j (${(t2*8).toFixed(1)} h)\n`;
+  body += `   T3 ${bar(t3)} ${t3.toFixed(2)} j (${(t3*8).toFixed(1)} h) ★ ENCOURS J+1\n`;
+  body += `${'═'.repeat(52)}\n\n`;
+
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+    body += `▌ ${p.nom} [${d.couleur}]\n`;
+    TOURNEES.forEach(t => {
+      const av  = d.avanceT[t]||'—';
+      const cfg = ETAT_CFG[d.avanceT[t]] || ETAT_CFG[''];
+      const b   = cfg.v>0 ? bar(cfg.v) : '[░░░░░░░░░░]';
+      body += `  ${t} ${b} ${av.toUpperCase().padEnd(7)} ${cfg.v>0?cfg.v.toFixed(2)+' j':''}${t==='T3'?' ★':''}`;
+      p.questions.filter(q=>q.type==='qte').forEach(q=>{
+        if(d.qtes[t]) body+=`  Qté:${d.qtes[t]}`;
+      });
+      body += '\n';
+    });
+    p.questions.filter(q=>q.ctrl).forEach(q=>{
+      TOURNEES.forEach(t=>{
+        const rep=d.reponses[q.id+'_'+t]||'—';
+        body+=`  🔍 ${q.label.replace('🔍 ','')} ${t}: ${rep}\n`;
+      });
+    });
+    const comm=Object.values(d.comms||{}).filter(v=>v.trim());
+    const secu=Object.values(d.secus||{}).filter(v=>v.trim());
+    if(comm.length) body+=`  💬 ${comm.join(' | ')}\n`;
+    if(secu.length) body+=`  ⚠️  ${secu.join(' | ')}\n`;
+    body+='\n';
+  });
+
+  body+=`${'═'.repeat(52)}\n`;
+  body+=`⏱ Temps passage: ${appData.temps||'—'}\n`;
+  body+=`🤝 Décisions: ${appData.decisions||'—'}\n`;
+
+  window.location.href =
+    `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+  closeModal('modal-email');
+}
+
+// ═══════════════════════════════════════════
+// VOCAL
+// ═══════════════════════════════════════════
+let recognition=null, voiceTarget=null;
+
+function startVoice(pid, field) {
+  if (!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)) {
+    alert('❌ Saisie vocale : utilisez Chrome ou Edge.'); return;
+  }
+  voiceTarget={pid,field};
+  const isSecu=field.startsWith('secu');
+  const pc=POSTES_CONFIG.find(p=>p.id===pid);
+  document.getElementById('vocal-title').textContent='🎙️ '+(isSecu?'Sécurité':'Commentaire');
+  document.getElementById('vocal-poste-label').textContent='Poste : '+(pc?pc.nom:pid);
+  document.getElementById('vocal-text').textContent='Parlez maintenant...';
+  document.getElementById('vpulse').style.display='inline-block';
+  openModal('modal-vocal');
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();
+  recognition.lang='fr-FR'; recognition.continuous=false; recognition.interimResults=true;
+  recognition.onresult=e=>{
+    let txt='';
+    for(let i=e.resultIndex;i<e.results.length;i++) txt+=e.results[i][0].transcript;
+    document.getElementById('vocal-text').textContent=txt;
+  };
+  recognition.onend=()=>document.getElementById('vpulse').style.display='none';
+  recognition.onerror=e=>{
+    document.getElementById('vocal-text').textContent='❌ '+e.error;
+    document.getElementById('vpulse').style.display='none';
+  };
+  recognition.start();
+}
+
+function confirmVoice() {
+  if (!voiceTarget) { closeModal('modal-vocal'); return; }
+  const text=document.getElementById('vocal-text').textContent;
+  const {pid,field}=voiceTarget;
+  const isSecu=field.startsWith('secu');
+  const qid=field.replace(/^(secu_|comm_)/,'');
+  const el=document.getElementById((isSecu?'secu-':'comm-')+pid+'-'+qid);
+  if(el) el.value=text;
+  if(isSecu) appData.postes[pid].secus[qid]=text;
+  else       appData.postes[pid].comms[qid]=text;
+  if(recognition) recognition.stop();
+  closeModal('modal-vocal');
+  voiceTarget=null;
+}
+
+function cancelVoice() {
+  if(recognition) recognition.stop();
+  closeModal('modal-vocal');
+  voiceTarget=null;
+}
+
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// INIT
+buildPostes();
+buildJaugesPostes();
+updateAll();
+</script>
+</body>
+</html>
+
