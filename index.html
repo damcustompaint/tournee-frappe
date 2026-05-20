@@ -8,7 +8,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
 body { background: #F0F4F8; font-size: 14px; -webkit-tap-highlight-color: transparent; }
 
-/* ── HEADER ── */
 .header { background: #1565C0; color: white; padding: 12px 14px; }
 .header h1 { font-size: 16px; margin-bottom: 2px; }
 .header p  { font-size: 11px; color: #BBDEFB; margin-bottom: 8px; }
@@ -17,100 +16,64 @@ body { background: #F0F4F8; font-size: 14px; -webkit-tap-highlight-color: transp
 .header-field label { font-size: 10px; color: #BBDEFB; margin-bottom: 3px; }
 .header-field input { padding: 6px; border-radius: 6px; border: none; font-size: 13px; }
 
-/* ── NAV ── */
 .nav { display: flex; background: #0D47A1; overflow-x: auto; }
 .nav button { flex: 1; min-width: 80px; padding: 10px 6px; background: none; border: none;
   color: #90CAF9; font-size: 12px; font-weight: bold; cursor: pointer;
   border-bottom: 3px solid transparent; white-space: nowrap; }
 .nav button.active { color: white; border-bottom: 3px solid #FFD54F; }
 
-/* ── SCREENS ── */
 .screen { display: none; padding: 8px; padding-bottom: 80px; }
 .screen.active { display: block; }
 
-/* ── LÉGENDE COULEURS (bandeau explicatif) ── */
 .legende-couleurs {
   display: flex; gap: 6px; padding: 8px 10px;
   background: white; border-radius: 10px; margin-bottom: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.07); flex-wrap: wrap;
-  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07); flex-wrap: wrap; align-items: center;
 }
 .legende-couleurs span { font-size: 10px; font-weight: bold; color: #555; margin-right: 4px; }
-.leg-item {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; font-weight: bold; padding: 4px 10px;
-  border-radius: 20px; color: white;
-}
-.leg-bleu   { background: #1565C0; }
-.leg-vert   { background: #2E7D32; }
-.leg-rouge  { background: #D32F2F; }
-.leg-info   { font-size: 10px; color: #888; font-style: italic; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: bold;
+  padding: 4px 10px; border-radius: 20px; color: white; }
+.leg-bleu { background: #1565C0; } .leg-vert { background: #2E7D32; } .leg-rouge { background: #D32F2F; }
+.leg-info { font-size: 10px; color: #888; font-style: italic; }
 
-/* ── BANNIÈRE STATUT ── */
-.statut-bar {
-  display: flex; gap: 6px; padding: 8px; flex-wrap: wrap;
-  background: white; border-radius: 10px; margin-bottom: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-}
-.statut-item {
-  flex: 1; min-width: 80px; border-radius: 8px; padding: 8px 10px;
-  text-align: center; font-size: 11px; font-weight: bold;
-  border: 2px solid transparent;
-}
+.statut-bar { display: flex; gap: 6px; padding: 8px; flex-wrap: wrap;
+  background: white; border-radius: 10px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.07); }
+.statut-item { flex: 1; min-width: 80px; border-radius: 8px; padding: 8px 10px;
+  text-align: center; font-size: 11px; font-weight: bold; border: 2px solid transparent; }
 .statut-item.locked  { background: #E8F5E9; color: #2E7D32; border-color: #2E7D32; }
-.statut-item.active  { background: #E3F2FD; color: #1565C0; border-color: #1565C0;
-  animation: pulse-border 1.5s infinite; }
+.statut-item.active  { background: #E3F2FD; color: #1565C0; border-color: #1565C0; animation: pulse-border 1.5s infinite; }
 .statut-item.waiting { background: #F5F5F5; color: #9E9E9E; border-color: #E0E0E0; }
-@keyframes pulse-border {
-  0%,100% { border-color: #1565C0; }
-  50%      { border-color: #90CAF9; }
-}
+@keyframes pulse-border { 0%,100%{border-color:#1565C0} 50%{border-color:#90CAF9} }
 .statut-item .si-icon { font-size: 16px; display: block; margin-bottom: 3px; }
 
-/* ── BOUTONS VERROU ── */
 .btn-lock-bar { display: flex; gap: 8px; padding: 8px; flex-wrap: wrap; }
-.btn-lock {
-  flex: 1; padding: 12px; border: none; border-radius: 10px;
+.btn-lock { flex: 1; padding: 12px; border: none; border-radius: 10px;
   font-size: 13px; font-weight: 800; color: white; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-}
-.btn-lock.t1-lock { background: #1565C0; }
-.btn-lock.t2-lock { background: #2E7D32; }
-.btn-lock.t3-lock { background: #E65100; }
-.btn-lock:disabled { background: #BDBDBD; cursor: not-allowed; }
+  display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-lock.t1-lock { background: #1565C0; } .btn-lock.t2-lock { background: #2E7D32; }
+.btn-lock.t3-lock { background: #E65100; } .btn-lock:disabled { background: #BDBDBD; cursor: not-allowed; }
 
-/* ── REPRISE ── */
-.reprise-banner {
-  background: #E8F5E9; border-left: 4px solid #2E7D32;
-  border-radius: 8px; padding: 10px 14px; margin-bottom: 8px;
-  font-size: 12px; color: #1B5E20;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;
-}
-.reprise-banner button {
-  background: #D32F2F; color: white; border: none; border-radius: 6px;
-  padding: 5px 12px; font-size: 11px; font-weight: bold; cursor: pointer;
-}
+.reprise-banner { background: #E8F5E9; border-left: 4px solid #2E7D32; border-radius: 8px;
+  padding: 10px 14px; margin-bottom: 8px; font-size: 12px; color: #1B5E20;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+.reprise-banner button { background: #D32F2F; color: white; border: none; border-radius: 6px;
+  padding: 5px 12px; font-size: 11px; font-weight: bold; cursor: pointer; }
 
-/* ── ENCOURS LENDEMAIN ── */
-.encours-banner {
-  background: linear-gradient(135deg, #4A148C, #7B1FA2);
-  color: white; border-radius: 12px; padding: 12px 14px;
-  margin-bottom: 8px; box-shadow: 0 4px 14px rgba(74,20,140,0.25);
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-}
+.encours-banner { background: linear-gradient(135deg,#4A148C,#7B1FA2); color: white;
+  border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+  box-shadow: 0 4px 14px rgba(74,20,140,0.25);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .encours-banner h3 { font-size: 12px; opacity: 0.9; margin-bottom: 3px; }
 .encours-banner .big { font-size: 30px; font-weight: 900; }
 .encours-banner .unit { font-size: 11px; opacity: 0.8; }
 .encours-badge { background: rgba(255,255,255,0.2); border-radius: 8px;
   padding: 6px 12px; font-size: 11px; font-weight: bold; text-align: center; }
 
-/* ── CARTES T1/T2/T3 ── */
 .temps-total-bloc { background: white; border-radius: 12px; padding: 12px;
   margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
 .temps-total-titre { font-size: 12px; font-weight: 800; color: #E65100;
   display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
-.dot-blink { width: 8px; height: 8px; border-radius: 50%;
-  display: inline-block; animation: blink 1.4s infinite; }
+.dot-blink { width: 8px; height: 8px; border-radius: 50%; display: inline-block; animation: blink 1.4s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 .tournee-global-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .tournee-card { border-radius: 10px; padding: 10px; position: relative; }
@@ -118,300 +81,284 @@ body { background: #F0F4F8; font-size: 14px; -webkit-tap-highlight-color: transp
 .tournee-card.t2 { background: #E8F5E9; border-top: 4px solid #2E7D32; }
 .tournee-card.t3 { background: #FFF3E0; border-top: 4px solid #E65100; }
 .tournee-card h4 { font-size: 11px; font-weight: 800; margin-bottom: 4px; }
-.tournee-card.t1 h4 { color:#1565C0; }
-.tournee-card.t2 h4 { color:#2E7D32; }
-.tournee-card.t3 h4 { color:#E65100; }
-.t3-badge { position:absolute; top:5px; right:6px;
-  background:#E65100; color:white; font-size:8px; font-weight:bold;
-  padding:2px 5px; border-radius:3px; }
+.tournee-card.t1 h4{color:#1565C0} .tournee-card.t2 h4{color:#2E7D32} .tournee-card.t3 h4{color:#E65100}
+.t3-badge { position:absolute; top:5px; right:6px; background:#E65100; color:white;
+  font-size:8px; font-weight:bold; padding:2px 5px; border-radius:3px; }
 .tournee-card .val { font-size:20px; font-weight:900; }
-.tournee-card.t1 .val { color:#1565C0; }
-.tournee-card.t2 .val { color:#2E7D32; }
-.tournee-card.t3 .val { color:#E65100; }
+.tournee-card.t1 .val{color:#1565C0} .tournee-card.t2 .val{color:#2E7D32} .tournee-card.t3 .val{color:#E65100}
 .tournee-card .unit { font-size:10px; color:#888; }
 .lock-badge { display:block; margin-top:4px; font-size:9px; font-weight:bold; color:#2E7D32; }
 .mini-bar { height:8px; background:#ddd; border-radius:4px; overflow:hidden; margin-top:6px; }
 .mini-bar-fill { height:100%; border-radius:4px; transition:width .5s; }
 
-/* ── JAUGES PAR POSTE ── */
-.jauge-bloc { background:white; border-radius:12px; padding:12px;
-  margin-bottom:8px; box-shadow:0 2px 8px rgba(0,0,0,0.07); border-left:4px solid #1565C0; }
+.jauge-bloc { background:white; border-radius:12px; padding:12px; margin-bottom:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.07); border-left:4px solid #1565C0; }
 .jauge-bloc-titre { font-size:12px; font-weight:800; color:#1565C0;
   margin-bottom:10px; display:flex; align-items:center; gap:6px; }
 .jp-poste-row { margin-bottom:12px; }
 .jp-poste-nom { font-size:11px; font-weight:800; color:#333; margin-bottom:5px; }
 .jp-tournees  { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
 .jp-t-block   { border-radius:8px; padding:6px; }
-.jp-t-block.t1 { background:#E3F2FD; }
-.jp-t-block.t2 { background:#E8F5E9; }
-.jp-t-block.t3 { background:#FFF3E0; border:1px solid #FFB74D; }
+.jp-t-block.t1{background:#E3F2FD} .jp-t-block.t2{background:#E8F5E9}
+.jp-t-block.t3{background:#FFF3E0;border:1px solid #FFB74D}
 .jp-t-label   { font-size:9px; font-weight:bold; margin-bottom:3px; }
-.jp-t-block.t1 .jp-t-label { color:#1565C0; }
-.jp-t-block.t2 .jp-t-label { color:#2E7D32; }
-.jp-t-block.t3 .jp-t-label { color:#E65100; }
+.jp-t-block.t1 .jp-t-label{color:#1565C0} .jp-t-block.t2 .jp-t-label{color:#2E7D32}
+.jp-t-block.t3 .jp-t-label{color:#E65100}
 .jp-t-track   { height:14px; background:#ddd; border-radius:7px; overflow:hidden; }
-.jp-t-fill    { height:100%; border-radius:7px; transition:width .4s, background .3s; }
+.jp-t-fill    { height:100%; border-radius:7px; transition:width .4s,background .3s; }
 .jp-t-val     { font-size:9px; font-weight:bold; text-align:right; margin-top:2px; }
-.jp-t-block.t1 .jp-t-val { color:#1565C0; }
-.jp-t-block.t2 .jp-t-val { color:#2E7D32; }
-.jp-t-block.t3 .jp-t-val { color:#E65100; }
+.jp-t-block.t1 .jp-t-val{color:#1565C0} .jp-t-block.t2 .jp-t-val{color:#2E7D32}
+.jp-t-block.t3 .jp-t-val{color:#E65100}
 .jp-legende { display:flex; gap:10px; margin-top:8px; padding-top:8px;
   border-top:1px solid #F0F0F0; flex-wrap:wrap; }
 .jp-leg-item { display:flex; align-items:center; gap:4px; font-size:10px; color:#555; }
 .jp-leg-dot  { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
 
-/* ── TABLEAU ── */
-.tournee-header {
-  display:grid; grid-template-columns:170px repeat(3,1fr) 160px 130px;
-  background:#E3F2FD; gap:3px; padding:6px 4px;
-  font-size:10px; font-weight:bold; color:#1565C0;
-  text-align:center; border-radius:8px; margin-bottom:6px;
-}
-.th1{color:#1565C0;} .th2{color:#2E7D32;} .th3{color:#E65100;font-weight:900;}
+.tournee-header { display:grid; grid-template-columns:170px repeat(3,1fr) 160px 130px;
+  background:#E3F2FD; gap:3px; padding:6px 4px; font-size:10px; font-weight:bold;
+  color:#1565C0; text-align:center; border-radius:8px; margin-bottom:6px; }
+.th1{color:#1565C0} .th2{color:#2E7D32} .th3{color:#E65100;font-weight:900}
 
-/* ── BLOC POSTE ── */
 .poste-bloc { background:white; border-radius:10px; margin-bottom:10px;
   box-shadow:0 2px 6px rgba(0,0,0,0.08); overflow:hidden; }
 .poste-titre { color:white; padding:8px 12px;
   display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:4px; }
-.poste-titre.avec-calcul { background:#1565C0; }
-.poste-titre.sans-calcul { background:#546E7A; }
+.poste-titre.avec-calcul{background:#1565C0} .poste-titre.sans-calcul{background:#546E7A}
 .poste-titre span { font-weight:bold; font-size:13px; }
-.poste-info-tag { font-size:10px; background:rgba(255,255,255,0.2);
-  border-radius:4px; padding:2px 8px; }
+.poste-info-tag { font-size:10px; background:rgba(255,255,255,0.2); border-radius:4px; padding:2px 8px; }
 
-/* Boutons couleur CORRIGÉS :
-   Bleu = Avance, Vert = OK, Rouge = Retard */
 .btn-couleur { border:none; border-radius:6px; padding:4px 10px;
   font-weight:bold; font-size:11px; color:white; cursor:pointer; }
-.couleur-BLEU  { background:#1565C0; }   /* ← Avance */
-.couleur-VERT  { background:#2E7D32; }   /* ← OK     */
-.couleur-ROUGE { background:#D32F2F; }   /* ← Retard */
+.couleur-BLEU{background:#1565C0} .couleur-VERT{background:#2E7D32} .couleur-ROUGE{background:#D32F2F}
 
-/* ── LIGNE QUESTION ── */
-.question-row {
-  display:grid; grid-template-columns:170px repeat(3,1fr) 160px 130px;
-  align-items:stretch; gap:3px; padding:4px 8px;
-  border-bottom:1px solid #F5F5F5;
-}
-.q-label { font-size:11px; color:#555; padding:4px 2px;
-  display:flex; align-items:center; line-height:1.3; }
+.question-row { display:grid; grid-template-columns:170px repeat(3,1fr) 160px 130px;
+  align-items:stretch; gap:3px; padding:4px 8px; border-bottom:1px solid #F5F5F5; }
+.q-label { font-size:11px; color:#555; padding:4px 2px; display:flex; align-items:center; line-height:1.3; }
 .q-label.controle { color:#7B1FA2; font-weight:bold; }
 
-/* ── OUI/NON ── */
 .oui-non-cell { display:flex; flex-direction:column; align-items:center;
   justify-content:center; gap:3px; padding:3px; }
 .oui-non-cell label { font-size:10px; font-weight:bold; }
-.tc1 label{color:#1565C0;} .tc2 label{color:#2E7D32;} .tc3 label{color:#E65100;}
+.tc1 label{color:#1565C0} .tc2 label{color:#2E7D32} .tc3 label{color:#E65100}
 .oui-non-wrap { display:flex; gap:4px; }
-.btn-oui,.btn-non {
-  padding:4px 8px; border:1.5px solid #DDD; border-radius:6px;
-  font-size:10px; font-weight:bold; cursor:pointer; background:white; transition:all .2s;
-}
-.btn-oui.sel { background:#C8E6C9; border-color:#2E7D32; color:#1B5E20; }
-.btn-non.sel { background:#FFCDD2; border-color:#D32F2F; color:#B71C1C; }
-.btn-oui:disabled,.btn-non:disabled { opacity:0.5; cursor:not-allowed; }
-.inline-jg { width:100%; height:5px; background:#eee; border-radius:3px; overflow:hidden; margin-top:2px; }
-.inline-jg-fill { height:100%; border-radius:3px; transition:width .3s; }
+.btn-oui,.btn-non { padding:4px 8px; border:1.5px solid #DDD; border-radius:6px;
+  font-size:10px; font-weight:bold; cursor:pointer; background:white; transition:all .2s; }
+.btn-oui.sel{background:#C8E6C9;border-color:#2E7D32;color:#1B5E20}
+.btn-non.sel{background:#FFCDD2;border-color:#D32F2F;color:#B71C1C}
+.btn-oui:disabled,.btn-non:disabled{opacity:0.5;cursor:not-allowed}
+.inline-jg{width:100%;height:5px;background:#eee;border-radius:3px;overflow:hidden;margin-top:2px}
+.inline-jg-fill{height:100%;border-radius:3px;transition:width .3s}
 
-/* ── QTÉ ── */
-.cell-qte { display:flex; align-items:center; justify-content:center; padding:3px; }
-.cell-qte input { width:100%; padding:4px 3px; border:1px solid #DDD;
-  border-radius:6px; font-size:11px; text-align:center; }
-.cell-qte input:disabled { opacity:0.5; background:#F5F5F5; }
+.cell-qte{display:flex;align-items:center;justify-content:center;padding:3px}
+.cell-qte input{width:100%;padding:4px 3px;border:1px solid #DDD;border-radius:6px;font-size:11px;text-align:center}
+.cell-qte input:disabled{opacity:0.5;background:#F5F5F5}
 
-/* ── COMMENTAIRE / SÉCURITÉ ── */
-.comment-cell { display:flex; align-items:stretch; gap:3px; padding:3px; }
-.comment-cell textarea { flex:1; padding:4px; border:1px solid #90CAF9;
-  border-radius:6px; font-size:11px; resize:none; min-height:34px; }
-.secu-cell { display:flex; align-items:stretch; gap:3px; padding:3px; }
-.secu-cell textarea { flex:1; padding:4px; border:1px solid #EF9A9A;
-  border-radius:6px; font-size:11px; resize:none; min-height:34px; color:#D32F2F; }
-.mic-btn { background:none; border:none; font-size:16px; cursor:pointer;
-  padding:2px; align-self:flex-start; }
-textarea:disabled { opacity:0.5; background:#F5F5F5; }
+.comment-cell{display:flex;align-items:stretch;gap:3px;padding:3px}
+.comment-cell textarea{flex:1;padding:4px;border:1px solid #90CAF9;border-radius:6px;font-size:11px;resize:none;min-height:34px}
+.secu-cell{display:flex;align-items:stretch;gap:3px;padding:3px}
+.secu-cell textarea{flex:1;padding:4px;border:1px solid #EF9A9A;border-radius:6px;font-size:11px;resize:none;min-height:34px;color:#D32F2F}
+.mic-btn{background:none;border:none;font-size:16px;cursor:pointer;padding:2px;align-self:flex-start}
+textarea:disabled{opacity:0.5;background:#F5F5F5}
 
-/* ── AVANCE PAR TOURNÉE ── */
-.avance-row { padding:8px 10px; border-top:2px solid #E3F2FD; background:#F8FBFF; }
-.avance-row-title { font-size:10px; font-weight:bold; color:#555; margin-bottom:6px; }
-.poste-tournee-jauges { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
-.ptj-block { border-radius:8px; padding:6px 8px; }
-.ptj-block.t1 { background:#E3F2FD; }
-.ptj-block.t2 { background:#E8F5E9; }
-.ptj-block.t3 { background:#FFF3E0; border:1px solid #FFB74D; }
-.ptj-block.locked-t { opacity:0.7; }
-.ptj-label { font-size:9px; font-weight:bold; margin-bottom:3px;
-  display:flex; justify-content:space-between; align-items:center; }
-.ptj-block.t1 .ptj-label{color:#1565C0;}
-.ptj-block.t2 .ptj-label{color:#2E7D32;}
-.ptj-block.t3 .ptj-label{color:#E65100;}
-.ptj-btns { display:flex; gap:3px; margin-bottom:4px; flex-wrap:wrap; }
-.ptj-btn { padding:3px 7px; border:none; border-radius:10px; font-size:9px;
-  font-weight:bold; color:white; cursor:pointer; }
-.ptj-btn:disabled { opacity:0.4; cursor:not-allowed; }
-.ptj-btn.sel { outline:2px solid #FFD54F; outline-offset:1px; }
+/* RÉGLETTE AVANCE — uniquement pour postes avec calcul */
+.avance-row{padding:8px 10px;border-top:2px solid #E3F2FD;background:#F8FBFF}
+.avance-row-title{font-size:10px;font-weight:bold;color:#555;margin-bottom:6px}
+.poste-tournee-jauges{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ptj-block{border-radius:8px;padding:6px 8px}
+.ptj-block.t1{background:#E3F2FD} .ptj-block.t2{background:#E8F5E9}
+.ptj-block.t3{background:#FFF3E0;border:1px solid #FFB74D}
+.ptj-block.locked-t{opacity:0.7}
+.ptj-label{font-size:9px;font-weight:bold;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center}
+.ptj-block.t1 .ptj-label{color:#1565C0} .ptj-block.t2 .ptj-label{color:#2E7D32}
+.ptj-block.t3 .ptj-label{color:#E65100}
+.ptj-btns{display:flex;gap:3px;margin-bottom:4px;flex-wrap:wrap}
+.ptj-btn{padding:3px 7px;border:none;border-radius:10px;font-size:9px;font-weight:bold;color:white;cursor:pointer}
+.ptj-btn:disabled{opacity:0.4;cursor:not-allowed}
+.ptj-btn.sel{outline:2px solid #FFD54F;outline-offset:1px}
+.btn-avance-bleu{background:#1565C0} .btn-avance-vert{background:#2E7D32} .btn-avance-rouge{background:#D32F2F}
+.ptj-track{height:12px;background:#ddd;border-radius:6px;overflow:hidden}
+.ptj-fill{height:100%;border-radius:6px;transition:width .4s,background .3s}
+.ptj-val{font-size:9px;font-weight:bold;text-align:right;margin-top:2px}
+.ptj-block.t1 .ptj-val{color:#1565C0} .ptj-block.t2 .ptj-val{color:#2E7D32}
+.ptj-block.t3 .ptj-val{color:#E65100}
 
-/* Couleurs boutons Avance/OK/Retard CORRIGÉES */
-.btn-avance-bleu  { background:#1565C0; }  /* Avance = Bleu  */
-.btn-avance-vert  { background:#2E7D32; }  /* OK     = Vert  */
-.btn-avance-rouge { background:#D32F2F; }  /* Retard = Rouge */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.bottom-card{background:white;border-radius:10px;padding:10px;box-shadow:0 2px 4px rgba(0,0,0,0.06)}
+.bottom-card label{font-size:11px;font-weight:bold;color:#1565C0;display:block;margin-bottom:5px}
+.bottom-card textarea{width:100%;padding:6px;border:1px solid #DDD;border-radius:6px;font-size:12px;resize:none;height:60px}
 
-.ptj-track { height:12px; background:#ddd; border-radius:6px; overflow:hidden; }
-.ptj-fill  { height:100%; border-radius:6px; transition:width .4s, background .3s; }
-.ptj-val   { font-size:9px; font-weight:bold; text-align:right; margin-top:2px; }
-.ptj-block.t1 .ptj-val{color:#1565C0;}
-.ptj-block.t2 .ptj-val{color:#2E7D32;}
-.ptj-block.t3 .ptj-val{color:#E65100;}
+.btn-valider{width:100%;padding:14px;background:#2E7D32;color:white;border:none;border-radius:12px;
+  font-size:15px;font-weight:900;cursor:pointer;margin:8px 0;letter-spacing:1px}
+.btn-valider:disabled{background:#BDBDBD;cursor:not-allowed}
+.btn-new-day{width:100%;padding:10px;background:#D32F2F;color:white;border:none;border-radius:10px;
+  font-size:13px;font-weight:700;cursor:pointer;margin-top:6px}
 
-/* ── BAS ── */
-.bottom-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:8px 0; }
-.bottom-card { background:white; border-radius:10px; padding:10px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.06); }
-.bottom-card label { font-size:11px; font-weight:bold; color:#1565C0; display:block; margin-bottom:5px; }
-.bottom-card textarea { width:100%; padding:6px; border:1px solid #DDD;
-  border-radius:6px; font-size:12px; resize:none; height:60px; }
-.bottom-card input { width:100%; padding:6px; border:1px solid #DDD;
-  border-radius:6px; font-size:12px; }
+/* ══ DASHBOARD ══ */
+.dash-header{background:#1565C0;color:white;padding:14px;text-align:center;
+  border-radius:0 0 12px 12px;margin-bottom:10px}
+.dash-header h2{font-size:19px;font-weight:900}
+.dash-header p{font-size:11px;color:#BBDEFB;margin-top:3px}
 
-.btn-valider { width:100%; padding:14px; background:#2E7D32; color:white;
-  border:none; border-radius:12px; font-size:15px; font-weight:900;
-  cursor:pointer; margin:8px 0; letter-spacing:1px; }
-.btn-valider:disabled { background:#BDBDBD; cursor:not-allowed; }
-.btn-new-day { width:100%; padding:10px; background:#D32F2F; color:white;
-  border:none; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; margin-top:6px; }
+.encours-card{background:linear-gradient(135deg,#4A148C,#7B1FA2);color:white;
+  border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 4px 14px rgba(74,20,140,0.25)}
+.encours-card h3{font-size:12px;opacity:.85;margin-bottom:6px}
+.encours-card .big{font-size:44px;font-weight:900;line-height:1}
+.encours-card .unit{font-size:13px;opacity:.8;margin-top:3px}
+.encours-card .sub{font-size:11px;opacity:.75;margin-top:6px;
+  background:rgba(255,255,255,0.15);border-radius:6px;padding:6px 10px}
 
-/* ── DASHBOARD ── */
-.dash-header { background:#1565C0; color:white; padding:14px;
-  text-align:center; border-radius:0 0 12px 12px; margin-bottom:10px; }
-.dash-header h2 { font-size:19px; font-weight:900; }
-.dash-header p  { font-size:11px; color:#BBDEFB; margin-top:3px; }
-.encours-card { background:linear-gradient(135deg,#4A148C,#7B1FA2);
-  color:white; border-radius:14px; padding:16px; margin-bottom:12px;
-  box-shadow:0 4px 14px rgba(74,20,140,0.25); }
-.encours-card h3 { font-size:12px; opacity:.85; margin-bottom:6px; }
-.encours-card .big { font-size:44px; font-weight:900; line-height:1; }
-.encours-card .unit { font-size:13px; opacity:.8; margin-top:3px; }
-.encours-card .sub { font-size:11px; opacity:.75; margin-top:6px;
-  background:rgba(255,255,255,0.15); border-radius:6px; padding:6px 10px; }
-.dash-tournee-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
-.dash-t-card { border-radius:12px; padding:10px; text-align:center; }
-.dash-t-card.t1{background:#E3F2FD;border-top:4px solid #1565C0;}
-.dash-t-card.t2{background:#E8F5E9;border-top:4px solid #2E7D32;}
-.dash-t-card.t3{background:#FFF3E0;border-top:4px solid #E65100;}
-.dash-t-card h4{font-size:10px;font-weight:800;margin-bottom:5px;}
-.dash-t-card.t1 h4{color:#1565C0;} .dash-t-card.t2 h4{color:#2E7D32;} .dash-t-card.t3 h4{color:#E65100;}
-.dash-t-card .val{font-size:22px;font-weight:900;}
-.dash-t-card.t1 .val{color:#1565C0;} .dash-t-card.t2 .val{color:#2E7D32;} .dash-t-card.t3 .val{color:#E65100;}
-.dash-t-card .unit2{font-size:10px;color:#888;}
-.dash-t-bar{height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin-top:6px;}
-.dash-t-fill{height:100%;border-radius:4px;}
-.card{background:white;border-radius:12px;padding:12px;margin-bottom:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.07);}
+.dash-tournee-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.dash-t-card{border-radius:12px;padding:10px;text-align:center}
+.dash-t-card.t1{background:#E3F2FD;border-top:4px solid #1565C0}
+.dash-t-card.t2{background:#E8F5E9;border-top:4px solid #2E7D32}
+.dash-t-card.t3{background:#FFF3E0;border-top:4px solid #E65100}
+.dash-t-card h4{font-size:10px;font-weight:800;margin-bottom:5px}
+.dash-t-card.t1 h4{color:#1565C0} .dash-t-card.t2 h4{color:#2E7D32} .dash-t-card.t3 h4{color:#E65100}
+.dash-t-card .val{font-size:22px;font-weight:900}
+.dash-t-card.t1 .val{color:#1565C0} .dash-t-card.t2 .val{color:#2E7D32} .dash-t-card.t3 .val{color:#E65100}
+.dash-t-card .unit2{font-size:10px;color:#888}
+.dash-t-bar{height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin-top:6px}
+.dash-t-fill{height:100%;border-radius:4px}
+
+.card{background:white;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
 .section-title{font-size:12px;font-weight:800;color:#1565C0;
-  margin:10px 0 5px;padding-left:4px;border-left:4px solid #1565C0;}
-.jauge-wrap-d{margin-bottom:10px;}
-.jauge-label-d{font-size:11px;color:#333;margin-bottom:3px;display:flex;justify-content:space-between;}
-.jauge-track-d{height:24px;background:#E0E0E0;border-radius:12px;overflow:hidden;}
-.jauge-fill-d{height:100%;border-radius:12px;transition:width .6s;}
-.poste-dash{background:white;border-radius:10px;margin-bottom:8px;
-  overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.07);}
-.poste-dash-titre{color:white;padding:8px 12px;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;}
-.poste-dash-titre.avec-calcul{background:#1565C0;}
-.poste-dash-titre.sans-calcul{background:#546E7A;}
-.badge{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:bold;color:white;}
-.poste-dash-body{padding:10px;}
-.dash-poste-t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:6px 0;}
-.dash-pt-block{border-radius:8px;padding:6px;}
-.dash-pt-block.t1{background:#E3F2FD;} .dash-pt-block.t2{background:#E8F5E9;}
-.dash-pt-block.t3{background:#FFF3E0;border:1px solid #FFB74D;}
-.dash-pt-block h5{font-size:10px;font-weight:800;margin-bottom:3px;}
-.dash-pt-block.t1 h5{color:#1565C0;} .dash-pt-block.t2 h5{color:#2E7D32;} .dash-pt-block.t3 h5{color:#E65100;}
-.dash-pt-track{height:12px;background:#ddd;border-radius:6px;overflow:hidden;}
-.dash-pt-fill{height:100%;border-radius:6px;}
-.dash-pt-val{font-size:9px;font-weight:bold;text-align:right;margin-top:2px;}
-.dash-pt-block.t1 .dash-pt-val{color:#1565C0;} .dash-pt-block.t2 .dash-pt-val{color:#2E7D32;} .dash-pt-block.t3 .dash-pt-val{color:#E65100;}
-.qr-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
-.qr-chip{padding:2px 7px;border-radius:10px;font-size:10px;font-weight:bold;}
-.qr-oui{background:#C8E6C9;color:#1B5E20;} .qr-non{background:#FFCDD2;color:#B71C1C;}
-.qr-nd{background:#F5F5F5;color:#999;} .qr-ctrl{background:#EDE7F6;color:#4A148C;}
-.poste-info{font-size:11px;color:#555;margin-top:3px;}
-.secu-alert{color:#D32F2F;font-weight:bold;font-size:11px;margin-top:3px;}
-.comm-info{color:#1565C0;font-size:11px;font-style:italic;margin-top:3px;}
+  margin:10px 0 5px;padding-left:4px;border-left:4px solid #1565C0}
 
-/* ── BOUTON EMAIL ── */
-.btn-email{width:100%;padding:14px;color:white;border:none;
-  border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;margin-top:10px;}
-.btn-email.active{background:#1565C0;}
-.btn-email.disabled{background:#BDBDBD;cursor:not-allowed;}
-.btn-email-info{font-size:11px;color:#888;text-align:center;margin-top:6px;}
+/* Jauges globales bilan */
+.jauge-wrap-d{margin-bottom:10px}
+.jauge-label-d{font-size:11px;color:#333;margin-bottom:3px;display:flex;justify-content:space-between}
+.jauge-track-d{height:24px;background:#E0E0E0;border-radius:12px;overflow:hidden}
+.jauge-fill-d{height:100%;border-radius:12px;transition:width .6s}
+
+/* ══ TABLEAU BILAN LISIBLE ══ */
+.bilan-table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:12px}
+.bilan-table th{background:#1565C0;color:white;padding:7px 8px;text-align:center;font-size:11px}
+.bilan-table td{padding:6px 8px;border-bottom:1px solid #E8EAF0;vertical-align:middle}
+.bilan-table tr:nth-child(even) td{background:#F8FBFF}
+.bilan-table tr:hover td{background:#E3F2FD}
+.bilan-table .poste-name{font-weight:bold;color:#333}
+.bilan-table .ctrl-row td{background:#FAF3FF!important}
+.bilan-table .ctrl-row .poste-name{color:#7B1FA2}
+.t-pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:bold;color:white;white-space:nowrap}
+.t-pill.avance{background:#1565C0} .t-pill.ok{background:#2E7D32}
+.t-pill.retard{background:#D32F2F} .t-pill.nd{background:#9E9E9E}
+.rep-pill{display:inline-block;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:bold;white-space:nowrap}
+.rep-oui{background:#C8E6C9;color:#1B5E20} .rep-non{background:#FFCDD2;color:#B71C1C}
+.rep-nd{background:#F0F0F0;color:#999} .rep-ctrl{background:#EDE7F6;color:#4A148C}
+
+.poste-section{background:white;border-radius:10px;margin-bottom:10px;
+  overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.07)}
+.poste-section-header{color:white;padding:8px 14px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px}
+.poste-section-header.avec-calcul{background:#1565C0}
+.poste-section-header.sans-calcul{background:#546E7A}
+.poste-section-header .ps-name{font-weight:bold;font-size:13px}
+.ps-badge{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:bold;color:white}
+.poste-section-body{padding:10px 12px}
+
+.avancement-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.av-block{flex:1;min-width:80px;border-radius:8px;padding:7px 10px;text-align:center}
+.av-block.t1{background:#E3F2FD} .av-block.t2{background:#E8F5E9}
+.av-block.t3{background:#FFF3E0;border:1px solid #FFB74D}
+.av-block .av-label{font-size:9px;font-weight:bold;margin-bottom:3px}
+.av-block.t1 .av-label{color:#1565C0} .av-block.t2 .av-label{color:#2E7D32}
+.av-block.t3 .av-label{color:#E65100}
+.av-block .av-val{font-size:14px;font-weight:900}
+.av-block.t1 .av-val{color:#1565C0} .av-block.t2 .av-val{color:#2E7D32}
+.av-block.t3 .av-val{color:#E65100}
+.av-block .av-sub{font-size:9px;color:#888}
+
+.checks-bloc{margin-bottom:6px}
+.checks-title{font-size:10px;font-weight:bold;color:#555;margin-bottom:5px}
+.checks-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:4px 8px;align-items:center;font-size:11px}
+.checks-grid .cg-label{color:#555;font-size:10px}
+.checks-grid .cg-label.ctrl{color:#7B1FA2;font-weight:bold}
+.checks-grid .cg-head{font-size:9px;font-weight:bold;text-align:center}
+.cg-head.t1{color:#1565C0} .cg-head.t2{color:#2E7D32} .cg-head.t3{color:#E65100}
+.rep-cell{text-align:center}
+
+.info-bloc{margin-top:6px;padding-top:6px;border-top:1px solid #F0F0F0}
+.info-ligne{font-size:11px;margin-bottom:3px;display:flex;gap:6px}
+.info-ligne .info-key{font-weight:bold;color:#555;min-width:70px}
+.info-ligne .info-val{color:#333}
+.secu-ligne .info-val{color:#D32F2F;font-weight:bold}
+
+.btn-email{width:100%;padding:14px;color:white;border:none;border-radius:12px;
+  font-size:14px;font-weight:800;cursor:pointer;margin-top:10px}
+.btn-email.active{background:#1565C0} .btn-email.disabled{background:#BDBDBD;cursor:not-allowed}
+.btn-email-info{font-size:11px;color:#888;text-align:center;margin-top:6px}
+
+/* Bouton impression */
+.btn-print{width:100%;padding:12px;background:#7B1FA2;color:white;border:none;
+  border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px}
+.btn-print:disabled{background:#BDBDBD;cursor:not-allowed}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+  background:#1B5E20;color:white;padding:12px 22px;border-radius:30px;
+  font-size:13px;font-weight:bold;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.25);
+  opacity:0;transition:opacity 0.3s;pointer-events:none}
+.toast.show{opacity:1}
 
 /* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.6);z-index:1000;justify-content:center;
-  align-items:flex-start;padding:30px 10px;overflow-y:auto;}
-.modal-overlay.open{display:flex;}
-.modal-box{background:white;border-radius:16px;padding:20px;
-  width:100%;max-width:480px;box-shadow:0 8px 32px rgba(0,0,0,0.2);margin:auto;}
-.modal-title{font-size:15px;font-weight:800;color:#1565C0;margin-bottom:12px;}
-.modal-input{width:100%;padding:10px;border:1px solid #90CAF9;
-  border-radius:8px;font-size:14px;margin-bottom:10px;}
-.modal-btns{display:flex;gap:10px;margin-top:12px;}
-.modal-btns button{flex:1;padding:12px;border:none;border-radius:10px;
-  font-size:13px;font-weight:800;color:white;cursor:pointer;}
-.btn-cancel{background:#EF5350;} .btn-confirm{background:#2E7D32;} .btn-send{background:#1565C0;}
-.vocal-result{background:#E8F5E9;border-radius:10px;padding:12px;
-  min-height:60px;margin:10px 0;font-size:14px;color:#333;}
+  align-items:flex-start;padding:30px 10px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal-box{background:white;border-radius:16px;padding:20px;width:100%;max-width:520px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);margin:auto}
+.modal-title{font-size:15px;font-weight:800;color:#1565C0;margin-bottom:12px}
+.modal-input{width:100%;padding:10px;border:1px solid #90CAF9;border-radius:8px;font-size:14px;margin-bottom:10px}
+.modal-btns{display:flex;gap:10px;margin-top:12px}
+.modal-btns button{flex:1;padding:12px;border:none;border-radius:10px;font-size:13px;font-weight:800;color:white;cursor:pointer}
+.btn-cancel{background:#EF5350} .btn-confirm{background:#2E7D32} .btn-send{background:#1565C0}
+.vocal-result{background:#E8F5E9;border-radius:10px;padding:12px;min-height:60px;margin:10px 0;font-size:14px;color:#333}
 .vpulse{display:inline-block;width:10px;height:10px;background:#D32F2F;
-  border-radius:50%;margin-right:6px;animation:blink 1s infinite;}
-.email-preview{background:#F9F9F9;border:1px solid #DDD;border-radius:8px;
-  padding:10px;margin-bottom:10px;max-height:260px;overflow-y:auto;font-size:11px;}
-.ep-title{font-size:12px;font-weight:800;color:#1565C0;margin-bottom:6px;
-  border-bottom:2px solid #E3F2FD;padding-bottom:3px;}
-.ep-encours{background:linear-gradient(135deg,#4A148C,#7B1FA2);color:white;
-  border-radius:8px;padding:8px 12px;margin-bottom:8px;text-align:center;}
-.ep-encours .big{font-size:22px;font-weight:900;}
-.ep-t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;}
-.ep-t-card{border-radius:7px;padding:7px;text-align:center;}
-.ep-t-card.t1{background:#E3F2FD;} .ep-t-card.t2{background:#E8F5E9;}
-.ep-t-card.t3{background:#FFF3E0;border:1px solid #FFB74D;}
-.ep-t-card .ev{font-size:16px;font-weight:900;}
-.ep-t-card.t1 .ev{color:#1565C0;} .ep-t-card.t2 .ev{color:#2E7D32;} .ep-t-card.t3 .ev{color:#E65100;}
-.ep-t-card .eu{font-size:9px;color:#888;}
-.ep-t-bar{height:7px;background:#ddd;border-radius:4px;overflow:hidden;margin-top:3px;}
-.ep-t-fill{height:100%;border-radius:4px;}
-.ep-poste-header{background:#1565C0;color:white;padding:5px 8px;
-  border-radius:6px 6px 0 0;font-weight:bold;font-size:11px;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:3px;}
-.ep-poste-header.sans-calcul{background:#546E7A;}
-.ep-poste-body{border:1px solid #E3F2FD;border-top:none;
-  border-radius:0 0 6px 6px;padding:7px;margin-bottom:7px;}
-.ep-pt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:5px 0;}
-.ep-pt-block{border-radius:6px;padding:5px;}
-.ep-pt-block.t1{background:#E3F2FD;} .ep-pt-block.t2{background:#E8F5E9;} .ep-pt-block.t3{background:#FFF3E0;}
-.ep-pt-block .el{font-size:9px;font-weight:bold;}
-.ep-pt-block.t1 .el{color:#1565C0;} .ep-pt-block.t2 .el{color:#2E7D32;} .ep-pt-block.t3 .el{color:#E65100;}
-.ep-pt-bar{height:7px;background:#ddd;border-radius:4px;overflow:hidden;margin:2px 0;}
-.ep-pt-fill{height:100%;border-radius:4px;}
-.ep-pt-val{font-size:9px;font-weight:bold;text-align:right;}
-.ep-pt-block.t1 .ep-pt-val{color:#1565C0;} .ep-pt-block.t2 .ep-pt-val{color:#2E7D32;} .ep-pt-block.t3 .ep-pt-val{color:#E65100;}
-.ep-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
-.ep-chip{padding:2px 6px;border-radius:8px;font-size:9px;font-weight:bold;}
-.ep-chip-oui{background:#C8E6C9;color:#1B5E20;} .ep-chip-non{background:#FFCDD2;color:#B71C1C;}
-.ep-chip-nd{background:#F0F0F0;color:#999;} .ep-chip-ctrl{background:#EDE7F6;color:#4A148C;}
-.ep-comm{font-size:9px;color:#1565C0;font-style:italic;margin-top:3px;}
-.ep-secu{font-size:9px;color:#D32F2F;font-weight:bold;margin-top:3px;}
+  border-radius:50%;margin-right:6px;animation:blink 1s infinite}
+
+/* ── TABS EMAIL ── */
+.email-tabs{display:flex;gap:6px;margin-bottom:10px}
+.email-tab{flex:1;padding:8px;border:2px solid #E3F2FD;border-radius:8px;
+  font-size:11px;font-weight:bold;cursor:pointer;background:white;color:#1565C0;text-align:center;transition:all .2s}
+.email-tab.active{background:#1565C0;color:white;border-color:#1565C0}
+
+.copy-zone{background:#F0F4F8;border:1px solid #DDD;border-radius:8px;padding:10px;
+  font-size:11px;line-height:1.6;white-space:pre-wrap;max-height:200px;overflow-y:auto;
+  color:#333;margin-bottom:10px;font-family:monospace}
+.btn-copy{width:100%;padding:11px;background:#7B1FA2;color:white;border:none;
+  border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:8px}
+.btn-dl-eml{width:100%;padding:11px;background:#E65100;color:white;border:none;
+  border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:8px}
+.btn-dl-pdf{width:100%;padding:11px;background:#2E7D32;color:white;border:none;
+  border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:8px}
+.email-method-info{font-size:10px;color:#888;text-align:center;margin-top:4px;line-height:1.5}
 
 @media (max-width:600px){
-  .tournee-header,.question-row{grid-template-columns:1fr;}
-  .tournee-header{display:none;}
-  .bottom-grid{grid-template-columns:1fr;}
+  .tournee-header,.question-row{grid-template-columns:1fr}
+  .tournee-header{display:none}
+  .bottom-grid{grid-template-columns:1fr}
   .tournee-global-row,.jp-tournees,.poste-tournee-jauges,
-  .dash-tournee-grid,.dash-poste-t-grid,.ep-t-grid,.ep-pt-grid{grid-template-columns:1fr;}
+  .dash-tournee-grid,.avancement-row{grid-template-columns:1fr}
+  .checks-grid{grid-template-columns:auto 1fr 1fr 1fr}
+}
+
+@media print{
+  .nav,.btn-lock-bar,.btn-lock-bar,.btn-valider,.btn-new-day,
+  .btn-email,.btn-print,.btn-email-info,.legende-couleurs,
+  .statut-bar,.encours-banner,.temps-total-bloc,.jauge-bloc,
+  .tournee-header,.postes-container,.bottom-grid,.reprise-banner,
+  #screen-suivi,.modal-overlay{display:none!important}
+  body{background:white;font-size:12px}
+  .screen{display:block!important;padding:0}
+  #screen-dashboard{display:block!important}
+  .dash-header{border-radius:0}
+  .poste-section{break-inside:avoid}
 }
 </style>
 </head>
 <body>
+
+<div class="toast" id="toast"></div>
 
 <!-- HEADER -->
 <div class="header">
@@ -446,7 +393,6 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
 <!-- ══ ÉCRAN SUIVI ══ -->
 <div id="screen-suivi" class="screen active">
 
-  <!-- LÉGENDE COULEURS -->
   <div class="legende-couleurs">
     <span>Réglette :</span>
     <div class="leg-item leg-bleu">🔵 BLEU = Avance (0.25 j)</div>
@@ -455,13 +401,11 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
     <span class="leg-info">⚡ Bleu = déplacer une personne</span>
   </div>
 
-  <!-- REPRISE -->
   <div class="reprise-banner" id="reprise-banner" style="display:none">
     <span id="reprise-txt">✅ Tournée reprise</span>
     <button onclick="confirmNewDay()">🗑️ Nouvelle journée</button>
   </div>
 
-  <!-- STATUT -->
   <div class="statut-bar">
     <div class="statut-item waiting" id="stat-T1">
       <span class="si-icon">🔵</span>TOURNÉE 1<br>
@@ -477,14 +421,12 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
     </div>
   </div>
 
-  <!-- VERROUS -->
   <div class="btn-lock-bar">
     <button class="btn-lock t1-lock" id="btn-lock-T1" onclick="lockTournee('T1')">🔒 Verrouiller T1</button>
     <button class="btn-lock t2-lock" id="btn-lock-T2" onclick="lockTournee('T2')" disabled>🔒 Verrouiller T2</button>
     <button class="btn-lock t3-lock" id="btn-lock-T3" onclick="lockTournee('T3')" disabled>🔒 Verrouiller T3 & Bilan</button>
   </div>
 
-  <!-- ENCOURS -->
   <div class="encours-banner">
     <div>
       <h3>📦 ENCOURS J+1 (T3 — fin de poste)</h3>
@@ -494,7 +436,6 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
     <div class="encours-badge" id="encours-live-detail">T3 non renseignée</div>
   </div>
 
-  <!-- CARTES T1/T2/T3 -->
   <div class="temps-total-bloc">
     <div class="temps-total-titre">
       <span class="dot-blink" style="background:#E65100"></span>
@@ -526,7 +467,6 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
     </div>
   </div>
 
-  <!-- JAUGES PAR POSTE -->
   <div class="jauge-bloc">
     <div class="jauge-bloc-titre">
       <span class="dot-blink"></span>
@@ -540,7 +480,6 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
     </div>
   </div>
 
-  <!-- EN-TÊTE COLONNES -->
   <div class="tournee-header">
     <div>POSTE / QUESTIONS</div>
     <div class="th1">🔵 T1</div>
@@ -552,7 +491,6 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
 
   <div id="postes-container"></div>
 
-  <!-- BAS -->
   <div class="bottom-grid">
     <div class="bottom-card">
       <label>⏱ TEMPS DE PASSAGE</label>
@@ -573,8 +511,11 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
 <!-- ══ ÉCRAN DASHBOARD ══ -->
 <div id="screen-dashboard" class="screen">
   <div id="dashboard-content"></div>
+  <button class="btn-print" id="btn-print" onclick="printBilan()" disabled>
+    🖨️ IMPRIMER / SAUVEGARDER EN PDF
+  </button>
   <button class="btn-email disabled" id="btn-email" onclick="openEmailModal()" disabled>
-    📧 ENVOYER PAR EMAIL (disponible après T3 validée)
+    📧 ENVOYER / COPIER LE BILAN (disponible après T3 validée)
   </button>
   <p class="btn-email-info" id="email-info">Verrouillez T3 pour activer l'envoi</p>
 </div>
@@ -615,26 +556,85 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
     <p style="color:#555;margin-bottom:14px">Confirmer la remise à zéro ?</p>
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeModal('modal-newday')">Annuler</button>
-      <button style="background:#D32F2F;flex:1;padding:12px;border:none;border-radius:10px;font-size:13px;font-weight:800;color:white;cursor:pointer"
-        onclick="newDay()">🗑️ Effacer & recommencer</button>
+      <button style="background:#D32F2F;flex:1;padding:12px;border:none;border-radius:10px;
+        font-size:13px;font-weight:800;color:white;cursor:pointer" onclick="newDay()">
+        🗑️ Effacer & recommencer
+      </button>
     </div>
   </div>
 </div>
 
-<!-- MODAL EMAIL -->
+<!-- ══ MODAL EMAIL ══ -->
 <div class="modal-overlay" id="modal-email">
-  <div class="modal-box" style="max-width:520px;">
-    <div class="modal-title">📧 Aperçu & Envoi du bilan</div>
-    <input class="modal-input" id="email-to" type="email" placeholder="Destinataire : votre@email.com">
-    <input class="modal-input" id="email-subject" type="text" placeholder="Objet">
-    <div class="email-preview" id="email-preview-zone"></div>
-    <p style="font-size:10px;color:#888;margin-bottom:8px;">
-      ℹ️ Le mail s'ouvrira dans votre messagerie pré-rempli.
-    </p>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('modal-email')">❌ Annuler</button>
-      <button class="btn-send" onclick="sendEmail()">📤 Ouvrir Boîte Mail</button>
+  <div class="modal-box">
+    <div class="modal-title">📧 Envoyer / Exporter le bilan</div>
+
+    <div class="email-tabs">
+      <button class="email-tab active" id="tab-mailto"  onclick="switchTab('mailto')">📤 Messagerie</button>
+      <button class="email-tab"        id="tab-copy"    onclick="switchTab('copy')">📋 Copier</button>
+      <button class="email-tab"        id="tab-eml"     onclick="switchTab('eml')">💾 Fichier .eml</button>
+      <button class="email-tab"        id="tab-pdf"     onclick="switchTab('pdf')">📄 PDF</button>
     </div>
+
+    <!-- PANEL : MAILTO -->
+    <div id="panel-mailto">
+      <input class="modal-input" id="email-to"      type="email" placeholder="Destinataire : votre@email.com">
+      <input class="modal-input" id="email-subject" type="text"  placeholder="Objet">
+      <div style="background:#F0F4F8;border-radius:8px;padding:10px;margin-bottom:10px;
+        font-size:11px;max-height:160px;overflow-y:auto" id="email-preview-zone"></div>
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeModal('modal-email')">❌ Fermer</button>
+        <button class="btn-send"   onclick="sendMailto()">📤 Ouvrir Messagerie</button>
+      </div>
+      <p class="email-method-info">
+        ℹ️ Ouvre votre client mail (Outlook, Mail…) avec le bilan pré-rempli.<br>
+        Si rien ne s'ouvre : utilisez <strong>Copier</strong> ou <strong>Fichier .eml</strong>.
+      </p>
+    </div>
+
+    <!-- PANEL : COPY -->
+    <div id="panel-copy" style="display:none">
+      <div class="copy-zone" id="copy-zone-content"></div>
+      <button class="btn-copy" onclick="copyToClipboard()">📋 Copier dans le presse-papier</button>
+      <button class="btn-cancel" onclick="closeModal('modal-email')"
+        style="width:100%;padding:10px;border:none;border-radius:10px;font-size:13px;
+        font-weight:800;color:white;cursor:pointer;background:#EF5350;">❌ Fermer</button>
+      <p class="email-method-info">Collez dans Gmail, Outlook, WhatsApp…</p>
+    </div>
+
+    <!-- PANEL : EML -->
+    <div id="panel-eml" style="display:none">
+      <input class="modal-input" id="email-to-eml"      type="email" placeholder="Destinataire : votre@email.com">
+      <input class="modal-input" id="email-subject-eml" type="text"  placeholder="Objet">
+      <button class="btn-dl-eml" onclick="downloadEml()">💾 Télécharger le fichier .eml</button>
+      <button class="btn-cancel" onclick="closeModal('modal-email')"
+        style="width:100%;padding:10px;border:none;border-radius:10px;font-size:13px;
+        font-weight:800;color:white;cursor:pointer;background:#EF5350;">❌ Fermer</button>
+      <p class="email-method-info">
+        Ouvrez le fichier <strong>.eml</strong> dans Outlook ou Thunderbird pour l'envoyer.
+      </p>
+    </div>
+
+    <!-- PANEL : PDF -->
+    <div id="panel-pdf" style="display:none">
+      <div style="background:#E8F5E9;border-radius:10px;padding:14px;margin-bottom:14px;text-align:center">
+        <div style="font-size:32px;margin-bottom:6px">📄</div>
+        <p style="font-size:13px;font-weight:bold;color:#1B5E20;margin-bottom:4px">Générer un PDF du bilan</p>
+        <p style="font-size:11px;color:#555">Un fichier HTML s'ouvre dans un nouvel onglet.<br>
+          Faites <strong>Ctrl+P</strong> (ou ☰ → Imprimer) puis choisissez <strong>"Enregistrer en PDF"</strong>.</p>
+      </div>
+      <button class="btn-dl-pdf" onclick="downloadPdfHtml()">📄 Ouvrir le bilan (→ PDF)</button>
+      <button style="width:100%;padding:10px;background:#7B1FA2;color:white;border:none;
+        border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:8px"
+        onclick="printBilan()">🖨️ Imprimer directement</button>
+      <button class="btn-cancel" onclick="closeModal('modal-email')"
+        style="width:100%;padding:10px;border:none;border-radius:10px;font-size:13px;
+        font-weight:800;color:white;cursor:pointer;background:#EF5350;">❌ Fermer</button>
+      <p class="email-method-info">
+        💡 Une fois en PDF : partagez-le par mail, WhatsApp, ou faites une capture d'écran.
+      </p>
+    </div>
+
   </div>
 </div>
 
@@ -645,23 +645,17 @@ textarea:disabled { opacity:0.5; background:#F5F5F5; }
 const TOURNEES = ['T1','T2','T3'];
 const T_COLORS = { T1:'#1565C0', T2:'#2E7D32', T3:'#E65100' };
 const T_CSS    = { T1:'t1', T2:'t2', T3:'t3' };
-const LS_KEY   = 'tournee_planche_v6';
+const LS_KEY   = 'tournee_planche_v7';
 
-// ── COULEURS CORRIGÉES ──
-// Bleu  = Avance  = 0.25 j  → temps court → déplacer une personne
-// Vert  = OK      = 0.50 j  → dans les temps
-// Rouge = Retard  = 0.75 j  → en retard
 const ETAT_CFG = {
-  avance: { v:0.25, col:'#1565C0', label:'🔵 Avance', btnClass:'btn-avance-bleu'  },
-  ok    : { v:0.50, col:'#2E7D32', label:'🟢 OK',     btnClass:'btn-avance-vert'  },
-  retard: { v:0.75, col:'#D32F2F', label:'🔴 Retard', btnClass:'btn-avance-rouge' },
-  ''    : { v:0,    col:'#E0E0E0', label:'—',          btnClass:''                 },
+  avance: { v:0.25, col:'#1565C0', label:'🔵 Avance', emoji:'🔵' },
+  ok    : { v:0.50, col:'#2E7D32', label:'🟢 OK',     emoji:'🟢' },
+  retard: { v:0.75, col:'#D32F2F', label:'🔴 Retard', emoji:'🔴' },
+  ''    : { v:0,    col:'#E0E0E0', label:'—',          emoji:'⬜' },
 };
 
-// Réglette poste : Bleu=Avance, Vert=OK, Rouge=Retard
-const COULEUR_ETATS = ['BLEU','VERT','ROUGE'];
+const COULEUR_ETATS  = ['BLEU','VERT','ROUGE'];
 const COULEUR_MAP_BG = { BLEU:'#1565C0', VERT:'#2E7D32', ROUGE:'#D32F2F' };
-const COULEUR_MAP_DASH = { BLEU:'#1565C0', VERT:'#2E7D32', ROUGE:'#D32F2F' };
 
 // ═══════════════════════════════════════════════
 // POSTES CONFIG
@@ -670,8 +664,8 @@ const POSTES_CONFIG = [
   {
     id:'DEBIT', nom:'DÉBIT', avecCalcul:false,
     questions:[
-      { id:'pb_qualite',    label:'Problème qualité ?',                    type:'ouinon' },
-      { id:'ctrl_chariots', label:'🔍 Contrôle chariots usinage ?',        type:'ouinon', ctrl:true },
+      { id:'pb_qualite',    label:'Problème qualité ?',                     type:'ouinon' },
+      { id:'ctrl_chariots', label:'🔍 Contrôle chariots usinage ?',         type:'ouinon', ctrl:true },
       { id:'ctrl_films',    label:'🔍 Contrôle pose films de protection ?', type:'ouinon', ctrl:true },
     ]
   },
@@ -733,7 +727,7 @@ const POSTES_CONFIG = [
   },
 ];
 
-const POSTES_AVEC_CALCUL = POSTES_CONFIG.filter(p=>p.avecCalcul);
+const POSTES_AVEC_CALCUL = POSTES_CONFIG.filter(p => p.avecCalcul);
 
 // ═══════════════════════════════════════════════
 // DONNÉES
@@ -745,7 +739,7 @@ function makeEmptyData() {
   const d = {
     date:'', absence:'', formation:'', effectif:'', temps:'', decisions:'',
     locks: { T1:false, T2:false, T3:false },
-    postes:{}
+    postes: {}
   };
   POSTES_CONFIG.forEach(p => {
     d.postes[p.id] = {
@@ -767,65 +761,63 @@ function makeEmptyData() {
 function saveAll() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(appData)); } catch(e){}
 }
-
 function loadAll() {
   try {
     const raw = localStorage.getItem(LS_KEY);
     if (!raw) return false;
     const saved = JSON.parse(raw);
     appData = makeEmptyData();
-    ['date','absence','formation','effectif','temps','decisions'].forEach(k=>{
-      if(saved[k]) appData[k]=saved[k];
+    ['date','absence','formation','effectif','temps','decisions'].forEach(k => {
+      if (saved[k]) appData[k] = saved[k];
     });
-    if(saved.locks) appData.locks=saved.locks;
-    if(saved.postes){
-      POSTES_CONFIG.forEach(p=>{
-        if(saved.postes[p.id]){
-          const sp=saved.postes[p.id], dp=appData.postes[p.id];
-          if(sp.couleur!==undefined) dp.couleur=sp.couleur;
-          if(sp.avanceT)  dp.avanceT=sp.avanceT;
-          if(sp.reponses) dp.reponses=sp.reponses;
-          if(sp.qtes)     dp.qtes=sp.qtes;
-          if(sp.comms)    dp.comms=sp.comms;
-          if(sp.secus)    dp.secus=sp.secus;
+    if (saved.locks) appData.locks = saved.locks;
+    if (saved.postes) {
+      POSTES_CONFIG.forEach(p => {
+        if (saved.postes[p.id]) {
+          const sp = saved.postes[p.id], dp = appData.postes[p.id];
+          if (sp.couleur !== undefined) dp.couleur = sp.couleur;
+          if (sp.avanceT)  dp.avanceT  = sp.avanceT;
+          if (sp.reponses) dp.reponses = sp.reponses;
+          if (sp.qtes)     dp.qtes     = sp.qtes;
+          if (sp.comms)    dp.comms    = sp.comms;
+          if (sp.secus)    dp.secus    = sp.secus;
         }
       });
     }
     return true;
   } catch(e){ return false; }
 }
-
-function saveField(k,v){ appData[k]=v; saveAll(); }
+function saveField(k, v) { appData[k] = v; saveAll(); }
 
 // ═══════════════════════════════════════════════
 // CALCULS
 // ═══════════════════════════════════════════════
-function calcTourneeTotal(t){
-  let total=0;
-  POSTES_AVEC_CALCUL.forEach(p=>{
-    const av=appData.postes[p.id].avanceT[t]||'';
-    total+=(ETAT_CFG[av]||ETAT_CFG['']).v;
+function calcTourneeTotal(t) {
+  let total = 0;
+  POSTES_AVEC_CALCUL.forEach(p => {
+    const av = appData.postes[p.id].avanceT[t] || '';
+    total += (ETAT_CFG[av] || ETAT_CFG['']).v;
   });
-  return Math.round(total*100)/100;
+  return Math.round(total * 100) / 100;
 }
-function getMaxTotal(){ return POSTES_AVEC_CALCUL.length*0.75; }
+function getMaxTotal() { return POSTES_AVEC_CALCUL.length * 0.75; }
 
 // ═══════════════════════════════════════════════
 // UPDATE UI
 // ═══════════════════════════════════════════════
-function updateAll(){
-  const t1=calcTourneeTotal('T1'),t2=calcTourneeTotal('T2'),t3=calcTourneeTotal('T3');
-  const max=getMaxTotal();
-  ['T1','T2','T3'].forEach((t,i)=>{
-    const v=[t1,t2,t3][i];
-    document.getElementById('t'+(i+1)+'-total').textContent=v.toFixed(2);
-    document.getElementById('t'+(i+1)+'-bar').style.width=Math.min((v/max)*100,100)+'%';
+function updateAll() {
+  const t1=calcTourneeTotal('T1'), t2=calcTourneeTotal('T2'), t3=calcTourneeTotal('T3');
+  const max = getMaxTotal();
+  ['T1','T2','T3'].forEach((t,i) => {
+    const v = [t1,t2,t3][i];
+    document.getElementById('t'+(i+1)+'-total').textContent = v.toFixed(2);
+    document.getElementById('t'+(i+1)+'-bar').style.width = Math.min((v/max)*100,100)+'%';
   });
-  document.getElementById('encours-live-val').textContent=t3.toFixed(2);
-  document.getElementById('encours-live-h').textContent=(t3*8).toFixed(1)+' h';
-  const t3n=POSTES_AVEC_CALCUL.filter(p=>appData.postes[p.id].avanceT['T3']!=='').length;
-  document.getElementById('encours-live-detail').textContent=
-    t3n===0?'T3 non renseignée':`${t3n}/${POSTES_AVEC_CALCUL.length} postes T3`;
+  document.getElementById('encours-live-val').textContent = t3.toFixed(2);
+  document.getElementById('encours-live-h').textContent = (t3*8).toFixed(1)+' h';
+  const t3n = POSTES_AVEC_CALCUL.filter(p => appData.postes[p.id].avanceT['T3'] !== '').length;
+  document.getElementById('encours-live-detail').textContent =
+    t3n===0 ? 'T3 non renseignée' : `${t3n}/${POSTES_AVEC_CALCUL.length} postes T3`;
   updateStatutBar();
   buildJaugesPostes();
   applyLockState();
@@ -835,108 +827,110 @@ function updateAll(){
 // ═══════════════════════════════════════════════
 // STATUT BAR
 // ═══════════════════════════════════════════════
-function updateStatutBar(){
-  TOURNEES.forEach(t=>{
-    const el=document.getElementById('stat-'+t);
-    const lbl=document.getElementById('stat-'+t+'-lbl');
-    if(appData.locks[t]){
-      el.className='statut-item locked'; lbl.textContent='🔒 Verrouillée';
-    } else if(canEditTournee(t)){
-      el.className='statut-item active'; lbl.textContent='✏️ En cours';
+function updateStatutBar() {
+  TOURNEES.forEach(t => {
+    const el  = document.getElementById('stat-'+t);
+    const lbl = document.getElementById('stat-'+t+'-lbl');
+    if (appData.locks[t]) {
+      el.className = 'statut-item locked'; lbl.textContent = '🔒 Verrouillée';
+    } else if (canEditTournee(t)) {
+      el.className = 'statut-item active'; lbl.textContent = '✏️ En cours';
     } else {
-      el.className='statut-item waiting'; lbl.textContent='En attente';
+      el.className = 'statut-item waiting'; lbl.textContent = 'En attente';
     }
   });
 }
-function canEditTournee(t){
-  if(t==='T1') return true;
-  if(t==='T2') return appData.locks['T1'];
-  if(t==='T3') return appData.locks['T1']&&appData.locks['T2'];
+function canEditTournee(t) {
+  if (t==='T1') return true;
+  if (t==='T2') return appData.locks['T1'];
+  if (t==='T3') return appData.locks['T1'] && appData.locks['T2'];
   return false;
 }
 
 // ═══════════════════════════════════════════════
 // VERROUS
 // ═══════════════════════════════════════════════
-function lockTournee(t){
-  pendingLock=t;
-  const msgs={
+function lockTournee(t) {
+  pendingLock = t;
+  const msgs = {
     T1:'La T1 sera figée. La T2 sera débloquée.',
     T2:'La T2 sera figée. La T3 sera débloquée.',
-    T3:'La T3 sera figée. Le bilan et l\'envoi mail seront activés.'
+    T3:"La T3 sera figée. Le bilan et l'envoi seront activés."
   };
-  document.getElementById('lock-title').textContent=`🔒 Verrouiller ${t} ?`;
-  document.getElementById('lock-msg').textContent=msgs[t];
-  document.getElementById('lock-confirm-btn').onclick=()=>confirmLock();
+  document.getElementById('lock-title').textContent = `🔒 Verrouiller ${t} ?`;
+  document.getElementById('lock-msg').textContent   = msgs[t];
+  document.getElementById('lock-confirm-btn').onclick = () => confirmLock();
   openModal('modal-lock');
 }
-function confirmLock(){
-  if(!pendingLock) return;
-  appData.locks[pendingLock]=true;
+function confirmLock() {
+  if (!pendingLock) return;
+  appData.locks[pendingLock] = true;
   closeModal('modal-lock');
-  pendingLock=null;
+  pendingLock = null;
   applyLockState();
   updateStatutBar();
   saveAll();
-  if(appData.locks['T3']){
+  if (appData.locks['T3']) {
     buildDashboard();
-    showScreen('dashboard',document.querySelectorAll('.nav button')[1]);
+    showScreen('dashboard', document.querySelectorAll('.nav button')[1]);
   }
 }
-function applyLockState(){
-  document.getElementById('btn-lock-T1').disabled=appData.locks['T1'];
-  document.getElementById('btn-lock-T2').disabled=!appData.locks['T1']||appData.locks['T2'];
-  document.getElementById('btn-lock-T3').disabled=!appData.locks['T2']||appData.locks['T3'];
-  ['T1','T2','T3'].forEach((t,i)=>{
-    const b=document.getElementById('t'+(i+1)+'-lock-badge');
-    if(b) b.style.display=appData.locks[t]?'block':'none';
+function applyLockState() {
+  document.getElementById('btn-lock-T1').disabled = appData.locks['T1'];
+  document.getElementById('btn-lock-T2').disabled = !appData.locks['T1'] || appData.locks['T2'];
+  document.getElementById('btn-lock-T3').disabled = !appData.locks['T2'] || appData.locks['T3'];
+  ['T1','T2','T3'].forEach((t,i) => {
+    const b = document.getElementById('t'+(i+1)+'-lock-badge');
+    if (b) b.style.display = appData.locks[t] ? 'block' : 'none';
   });
-  const btnV=document.getElementById('btn-valider');
-  if(appData.locks['T3']){
-    btnV.disabled=false; btnV.textContent='📊 VOIR LE BILAN';
+  const btnV = document.getElementById('btn-valider');
+  if (appData.locks['T3']) {
+    btnV.disabled = false; btnV.textContent = '📊 VOIR LE BILAN';
   } else {
-    btnV.disabled=true; btnV.textContent='📊 VOIR LE BILAN (disponible après verrouillage T3)';
+    btnV.disabled = true; btnV.textContent = '📊 VOIR LE BILAN (disponible après verrouillage T3)';
   }
-  const btnE=document.getElementById('btn-email');
-  const infoE=document.getElementById('email-info');
-  if(appData.locks['T3']){
-    btnE.disabled=false; btnE.className='btn-email active';
-    btnE.textContent='📧 ENVOYER PAR EMAIL'; infoE.textContent='';
+  const btnE  = document.getElementById('btn-email');
+  const infoE = document.getElementById('email-info');
+  const btnP  = document.getElementById('btn-print');
+  if (appData.locks['T3']) {
+    btnE.disabled = false; btnE.className = 'btn-email active';
+    btnE.textContent = '📧 ENVOYER / COPIER LE BILAN'; infoE.textContent = '';
+    if (btnP) btnP.disabled = false;
   } else {
-    btnE.disabled=true; btnE.className='btn-email disabled';
-    btnE.textContent='📧 ENVOYER PAR EMAIL (disponible après T3 validée)';
-    infoE.textContent='Verrouillez T3 pour activer l\'envoi';
+    btnE.disabled = true; btnE.className = 'btn-email disabled';
+    btnE.textContent = '📧 ENVOYER / COPIER LE BILAN (disponible après T3 validée)';
+    infoE.textContent = "Verrouillez T3 pour activer l'envoi";
+    if (btnP) btnP.disabled = true;
   }
-  TOURNEES.forEach(t=>{ if(appData.locks[t]) disableTourneeInputs(t); });
+  TOURNEES.forEach(t => { if (appData.locks[t]) disableTourneeInputs(t); });
 }
-function disableTourneeInputs(t){
-  document.querySelectorAll(`[id$="-${t}"]`).forEach(el=>{
-    if(el.classList.contains('btn-oui')||el.classList.contains('btn-non')||
-       el.classList.contains('ptj-btn')) el.disabled=true;
+function disableTourneeInputs(t) {
+  document.querySelectorAll(`[id$="-${t}"]`).forEach(el => {
+    if (el.classList.contains('btn-oui') || el.classList.contains('btn-non') ||
+        el.classList.contains('ptj-btn')) el.disabled = true;
   });
-  document.querySelectorAll(`input[data-tournee="${t}"]`).forEach(el=>el.disabled=true);
+  document.querySelectorAll(`input[data-tournee="${t}"]`).forEach(el => el.disabled = true);
 }
 
 // ═══════════════════════════════════════════════
-// JAUGES POSTES
+// JAUGES POSTES (uniquement postes avec calcul)
 // ═══════════════════════════════════════════════
-function buildJaugesPostes(){
-  const c=document.getElementById('jp-container');
-  if(!c) return;
-  c.innerHTML='';
-  POSTES_AVEC_CALCUL.forEach(p=>{
-    const d=appData.postes[p.id];
-    let tHTML='<div class="jp-tournees">';
-    TOURNEES.forEach(t=>{
-      const av=d.avanceT[t]||'';
-      const cfg=ETAT_CFG[av]||ETAT_CFG[''];
-      const pct=cfg.v*100;
-      const isT3=t==='T3';
-      tHTML+=`
+function buildJaugesPostes() {
+  const c = document.getElementById('jp-container');
+  if (!c) return;
+  c.innerHTML = '';
+  POSTES_AVEC_CALCUL.forEach(p => {
+    const d = appData.postes[p.id];
+    let tHTML = '<div class="jp-tournees">';
+    TOURNEES.forEach(t => {
+      const av  = d.avanceT[t] || '';
+      const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+      const pct = cfg.v * 100;
+      tHTML += `
         <div class="jp-t-block ${T_CSS[t]}">
           <div class="jp-t-label">
             ${t==='T1'?'🔵':t==='T2'?'🟢':'🟠'} ${t}
-            ${isT3?'<span style="font-size:8px;background:#E65100;color:white;border-radius:3px;padding:1px 3px">J+1</span>':''}
+            ${t==='T3'?'<span style="font-size:8px;background:#E65100;color:white;border-radius:3px;padding:1px 3px">J+1</span>':''}
             ${appData.locks[t]?'🔒':''}
           </div>
           <div class="jp-t-track">
@@ -945,33 +939,33 @@ function buildJaugesPostes(){
           <div class="jp-t-val">${cfg.v>0?cfg.v.toFixed(2)+' j':'—'}</div>
         </div>`;
     });
-    tHTML+='</div>';
-    c.innerHTML+=`<div class="jp-poste-row">
+    tHTML += '</div>';
+    c.innerHTML += `<div class="jp-poste-row">
       <div class="jp-poste-nom">${p.nom}</div>${tHTML}</div>`;
   });
 }
 
 // ═══════════════════════════════════════════════
-// CONSTRUCTION POSTES
+// CONSTRUCTION POSTES SUIVI
 // ═══════════════════════════════════════════════
-function buildPostes(){
-  const container=document.getElementById('postes-container');
-  container.innerHTML='';
-  POSTES_CONFIG.forEach(p=>{
-    const pid=p.id, d=appData.postes[pid];
-    let qHTML='';
-    p.questions.forEach(q=>{
-      const isCtrl=q.ctrl===true;
-      let cellsHTML='';
-      if(q.type==='ouinon'){
-        TOURNEES.forEach((t,ti)=>{
-          const rep=d.reponses[q.id+'_'+t]||'';
-          const tcls=['tc1','tc2','tc3'][ti];
-          const lkd=appData.locks[t];
-          const icon=t==='T1'?'🔵':t==='T2'?'🟢':'🟠';
-          const pct=rep==='oui'?100:rep==='non'?0:50;
-          const col=rep==='oui'?'#2E7D32':rep==='non'?'#D32F2F':'#9E9E9E';
-          cellsHTML+=`
+function buildPostes() {
+  const container = document.getElementById('postes-container');
+  container.innerHTML = '';
+  POSTES_CONFIG.forEach(p => {
+    const pid = p.id, d = appData.postes[pid];
+    let qHTML = '';
+    p.questions.forEach(q => {
+      const isCtrl = q.ctrl === true;
+      let cellsHTML = '';
+      if (q.type === 'ouinon') {
+        TOURNEES.forEach((t, ti) => {
+          const rep  = d.reponses[q.id+'_'+t] || '';
+          const tcls = ['tc1','tc2','tc3'][ti];
+          const lkd  = appData.locks[t];
+          const icon = t==='T1'?'🔵':t==='T2'?'🟢':'🟠';
+          const pct  = rep==='oui'?100:rep==='non'?0:50;
+          const col  = rep==='oui'?'#2E7D32':rep==='non'?'#D32F2F':'#9E9E9E';
+          cellsHTML += `
             <div class="oui-non-cell ${tcls}">
               <label>${icon} ${t}${t==='T3'?' ★':''}${lkd?' 🔒':''}</label>
               <div class="oui-non-wrap">
@@ -988,11 +982,11 @@ function buildPostes(){
               </div>
             </div>`;
         });
-      } else if(q.type==='qte'){
-        TOURNEES.forEach((t,ti)=>{
-          const val=(d.qtes||{})[t]||'';
-          const lkd=appData.locks[t];
-          cellsHTML+=`
+      } else if (q.type === 'qte') {
+        TOURNEES.forEach((t, ti) => {
+          const val = (d.qtes || {})[t] || '';
+          const lkd = appData.locks[t];
+          cellsHTML += `
             <div class="cell-qte">
               <input type="text" placeholder="${t}: ex 45/50"
                 value="${val}" data-tournee="${t}" ${lkd?'disabled':''}
@@ -1001,7 +995,7 @@ function buildPostes(){
             </div>`;
         });
       }
-      qHTML+=`
+      qHTML += `
         <div class="question-row" style="${isCtrl?'background:#FAF3FF;':''}">
           <div class="q-label ${isCtrl?'controle':''}">${q.label}</div>
           ${cellsHTML}
@@ -1018,21 +1012,20 @@ function buildPostes(){
         </div>`;
     });
 
-    // Zone avance par tournée (postes avec calcul)
-    let avHTML='';
-    if(p.avecCalcul){
-      avHTML='<div class="avance-row"><div class="avance-row-title">🔵 Bleu = Avance &nbsp;|&nbsp; 🟢 Vert = OK &nbsp;|&nbsp; 🔴 Rouge = Retard</div><div class="poste-tournee-jauges">';
-      TOURNEES.forEach((t,ti)=>{
-        const av=d.avanceT[t]||'';
-        const cfg=ETAT_CFG[av]||ETAT_CFG[''];
-        const lkd=appData.locks[t];
-        const icon=t==='T1'?'🔵':t==='T2'?'🟢':'🟠';
-        avHTML+=`
+    // ── Réglette avance/ok/retard : UNIQUEMENT pour postes avecCalcul ──
+    let avHTML = '';
+    if (p.avecCalcul) {
+      avHTML = '<div class="avance-row"><div class="avance-row-title">🔵 Bleu = Avance &nbsp;|&nbsp; 🟢 Vert = OK &nbsp;|&nbsp; 🔴 Rouge = Retard</div><div class="poste-tournee-jauges">';
+      TOURNEES.forEach((t, ti) => {
+        const av  = d.avanceT[t] || '';
+        const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+        const lkd = appData.locks[t];
+        const icon = t==='T1'?'🔵':t==='T2'?'🟢':'🟠';
+        avHTML += `
           <div class="ptj-block ${T_CSS[t]}${lkd?' locked-t':''}">
             <div class="ptj-label">
               <span>${icon} ${t}${t==='T3'?' ★':''}</span>
-              <span id="ptj-badge-${pid}-${t}"
-                style="font-size:8px;color:${cfg.col};font-weight:bold">
+              <span id="ptj-badge-${pid}-${t}" style="font-size:8px;color:${cfg.col};font-weight:bold">
                 ${av?av.toUpperCase():'—'}
               </span>
             </div>
@@ -1056,23 +1049,25 @@ function buildPostes(){
             </div>
           </div>`;
       });
-      avHTML+='</div></div>';
+      avHTML += '</div></div>';
     }
+    // Pas de section réglette pour postes sans calcul
 
-    // Bouton réglette couleur (Bleu/Vert/Rouge uniquement pour postes avec calcul)
-    let titulaireHTML='';
-    if(p.avecCalcul){
-      const coul=d.couleur||'VERT';
-      titulaireHTML=`
+    let titulaireHTML = '';
+    if (p.avecCalcul) {
+      const coul = d.couleur || 'VERT';
+      titulaireHTML = `
         <button class="btn-couleur couleur-${coul}" id="bcoul-${pid}"
-          onclick="toggleCouleur('${pid}')">${coul==='BLEU'?'🔵 AVANCE':coul==='VERT'?'🟢 OK':'🔴 RETARD'}</button>`;
+          onclick="toggleCouleur('${pid}')">
+          ${coul==='BLEU'?'🔵 AVANCE':coul==='VERT'?'🟢 OK':'🔴 RETARD'}
+        </button>`;
     } else {
-      titulaireHTML=`<span class="poste-info-tag">Info seulement</span>`;
+      titulaireHTML = `<span class="poste-info-tag">Info seulement</span>`;
     }
 
-    const bloc=document.createElement('div');
-    bloc.className='poste-bloc';
-    bloc.innerHTML=`
+    const bloc = document.createElement('div');
+    bloc.className = 'poste-bloc';
+    bloc.innerHTML = `
       <div class="poste-titre ${p.avecCalcul?'avec-calcul':'sans-calcul'}">
         <span>${p.nom}</span>
         ${titulaireHTML}
@@ -1086,70 +1081,64 @@ function buildPostes(){
 // ═══════════════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════════════
-function setRep(pid,qid,t,val){
-  if(appData.locks[t]) return;
-  appData.postes[pid].reponses[qid+'_'+t]=val;
-  const o=document.getElementById('oui-'+pid+'-'+qid+'-'+t);
-  const n=document.getElementById('non-'+pid+'-'+qid+'-'+t);
-  if(o) o.classList.toggle('sel',val==='oui');
-  if(n) n.classList.toggle('sel',val==='non');
-  const ij=document.getElementById('ij-'+pid+'-'+qid+'-'+t);
-  if(ij){
-    ij.style.width=val==='oui'?'100%':val==='non'?'0%':'50%';
-    ij.style.background=val==='oui'?'#2E7D32':val==='non'?'#D32F2F':'#9E9E9E';
+function setRep(pid, qid, t, val) {
+  if (appData.locks[t]) return;
+  appData.postes[pid].reponses[qid+'_'+t] = val;
+  const o = document.getElementById('oui-'+pid+'-'+qid+'-'+t);
+  const n = document.getElementById('non-'+pid+'-'+qid+'-'+t);
+  if (o) o.classList.toggle('sel', val==='oui');
+  if (n) n.classList.toggle('sel', val==='non');
+  const ij = document.getElementById('ij-'+pid+'-'+qid+'-'+t);
+  if (ij) {
+    ij.style.width      = val==='oui'?'100%':val==='non'?'0%':'50%';
+    ij.style.background = val==='oui'?'#2E7D32':val==='non'?'#D32F2F':'#9E9E9E';
   }
   saveAll();
 }
 
-function setAvanceT(pid,t,val){
-  if(appData.locks[t]) return;
-  appData.postes[pid].avanceT[t]=val;
-  const cfg=ETAT_CFG[val]||ETAT_CFG[''];
-  [['avance','bav'],['ok','bok'],['retard','bret']].forEach(([o,k])=>{
-    const el=document.getElementById(k+'-'+pid+'-'+t);
-    if(el) el.classList.toggle('sel',o===val);
+function setAvanceT(pid, t, val) {
+  if (appData.locks[t]) return;
+  appData.postes[pid].avanceT[t] = val;
+  const cfg = ETAT_CFG[val] || ETAT_CFG[''];
+  [['avance','bav'],['ok','bok'],['retard','bret']].forEach(([o,k]) => {
+    const el = document.getElementById(k+'-'+pid+'-'+t);
+    if (el) el.classList.toggle('sel', o===val);
   });
-  const fill=document.getElementById('ptj-fill-'+pid+'-'+t);
-  const valEl=document.getElementById('ptj-val-'+pid+'-'+t);
-  const badge=document.getElementById('ptj-badge-'+pid+'-'+t);
-  if(fill){ fill.style.width=cfg.v*100+'%'; fill.style.background=cfg.col; }
-  if(valEl) valEl.textContent=cfg.v>0?cfg.v.toFixed(2)+' j':'— j';
-  if(badge){ badge.textContent=val.toUpperCase(); badge.style.color=cfg.col; }
-
-  // Sync réglette couleur avec l'état avance T3 (référence)
-  if(t==='T3'&&appData.postes[pid]&&POSTES_CONFIG.find(p=>p.id===pid)?.avecCalcul){
+  const fill  = document.getElementById('ptj-fill-'+pid+'-'+t);
+  const valEl = document.getElementById('ptj-val-'+pid+'-'+t);
+  const badge = document.getElementById('ptj-badge-'+pid+'-'+t);
+  if (fill)  { fill.style.width = cfg.v*100+'%'; fill.style.background = cfg.col; }
+  if (valEl)   valEl.textContent = cfg.v>0 ? cfg.v.toFixed(2)+' j' : '— j';
+  if (badge) { badge.textContent = val.toUpperCase(); badge.style.color = cfg.col; }
+  if (t==='T3' && POSTES_CONFIG.find(p=>p.id===pid)?.avecCalcul) {
     const nouvCouleur = val==='avance'?'BLEU':val==='ok'?'VERT':val==='retard'?'ROUGE':appData.postes[pid].couleur;
-    appData.postes[pid].couleur=nouvCouleur;
-    const btnC=document.getElementById('bcoul-'+pid);
-    if(btnC){
-      btnC.className='btn-couleur couleur-'+nouvCouleur;
-      btnC.textContent=nouvCouleur==='BLEU'?'🔵 AVANCE':nouvCouleur==='VERT'?'🟢 OK':'🔴 RETARD';
+    appData.postes[pid].couleur = nouvCouleur;
+    const btnC = document.getElementById('bcoul-'+pid);
+    if (btnC) {
+      btnC.className   = 'btn-couleur couleur-'+nouvCouleur;
+      btnC.textContent = nouvCouleur==='BLEU'?'🔵 AVANCE':nouvCouleur==='VERT'?'🟢 OK':'🔴 RETARD';
     }
   }
   updateAll();
 }
 
-function saveQte(pid,t,val){
-  if(appData.locks[t]) return;
-  appData.postes[pid].qtes[t]=val; saveAll();
+function saveQte(pid, t, val)  { if (appData.locks[t]) return; appData.postes[pid].qtes[t]=val; saveAll(); }
+function saveComm(pid, qid, val) {
+  if (!appData.postes[pid].comms) appData.postes[pid].comms = {};
+  appData.postes[pid].comms[qid] = val; saveAll();
 }
-function saveComm(pid,qid,val){
-  if(!appData.postes[pid].comms) appData.postes[pid].comms={};
-  appData.postes[pid].comms[qid]=val; saveAll();
+function saveSecu(pid, qid, val) {
+  if (!appData.postes[pid].secus) appData.postes[pid].secus = {};
+  appData.postes[pid].secus[qid] = val; saveAll();
 }
-function saveSecu(pid,qid,val){
-  if(!appData.postes[pid].secus) appData.postes[pid].secus={};
-  appData.postes[pid].secus[qid]=val; saveAll();
-}
-
-function toggleCouleur(pid){
-  const cur=appData.postes[pid].couleur||'VERT';
-  const nxt=COULEUR_ETATS[(COULEUR_ETATS.indexOf(cur)+1)%3];
-  appData.postes[pid].couleur=nxt;
-  const btn=document.getElementById('bcoul-'+pid);
-  if(btn){
-    btn.className='btn-couleur couleur-'+nxt;
-    btn.textContent=nxt==='BLEU'?'🔵 AVANCE':nxt==='VERT'?'🟢 OK':'🔴 RETARD';
+function toggleCouleur(pid) {
+  const cur = appData.postes[pid].couleur || 'VERT';
+  const nxt = COULEUR_ETATS[(COULEUR_ETATS.indexOf(cur)+1) % 3];
+  appData.postes[pid].couleur = nxt;
+  const btn = document.getElementById('bcoul-'+pid);
+  if (btn) {
+    btn.className   = 'btn-couleur couleur-'+nxt;
+    btn.textContent = nxt==='BLEU'?'🔵 AVANCE':nxt==='VERT'?'🟢 OK':'🔴 RETARD';
   }
   saveAll();
 }
@@ -1157,368 +1146,656 @@ function toggleCouleur(pid){
 // ═══════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════
-function showScreen(name,btn){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+function showScreen(name, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
-  if(btn) btn.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
-function goToDashboard(){
-  if(!appData.locks['T3']) return;
+function goToDashboard() {
+  if (!appData.locks['T3']) return;
   buildDashboard();
-  showScreen('dashboard',document.querySelectorAll('.nav button')[1]);
+  showScreen('dashboard', document.querySelectorAll('.nav button')[1]);
 }
 
 // ═══════════════════════════════════════════════
 // NOUVELLE JOURNÉE
 // ═══════════════════════════════════════════════
-function confirmNewDay(){ openModal('modal-newday'); }
-function newDay(){
+function confirmNewDay() { openModal('modal-newday'); }
+function newDay() {
   localStorage.removeItem(LS_KEY);
-  appData=makeEmptyData();
+  appData = makeEmptyData();
   closeModal('modal-newday');
-  const today=new Date().toISOString().split('T')[0];
-  appData.date=today;
-  document.getElementById('inp-date').value=today;
-  ['absence','formation','effectif','temps','decisions'].forEach(k=>{
-    document.getElementById('inp-'+k).value='';
+  const today = new Date().toISOString().split('T')[0];
+  appData.date = today;
+  document.getElementById('inp-date').value = today;
+  ['absence','formation','effectif','temps','decisions'].forEach(k => {
+    document.getElementById('inp-'+k).value = '';
   });
-  document.getElementById('reprise-banner').style.display='none';
+  document.getElementById('reprise-banner').style.display = 'none';
   buildPostes(); buildJaugesPostes(); updateAll();
-  showScreen('suivi',document.querySelectorAll('.nav button')[0]);
+  showScreen('suivi', document.querySelectorAll('.nav button')[0]);
 }
 
 // ═══════════════════════════════════════════════
-// DASHBOARD
+// DASHBOARD — BILAN LISIBLE
 // ═══════════════════════════════════════════════
-function buildDashboard(){
-  const t1=calcTourneeTotal('T1'),t2=calcTourneeTotal('T2'),t3=calcTourneeTotal('T3');
-  const max=getMaxTotal();
-  const dateAff=appData.date?new Date(appData.date).toLocaleDateString('fr-FR'):'—';
-  const total=POSTES_AVEC_CALCUL.length;
-  const avN=POSTES_AVEC_CALCUL.filter(p=>appData.postes[p.id].avanceT['T3']==='avance').length;
-  const okN=POSTES_AVEC_CALCUL.filter(p=>appData.postes[p.id].avanceT['T3']==='ok').length;
-  const retN=POSTES_AVEC_CALCUL.filter(p=>appData.postes[p.id].avanceT['T3']==='retard').length;
-  const secN=POSTES_CONFIG.filter(p=>Object.values(appData.postes[p.id].secus||{}).some(v=>v.trim())).length;
-  const scoreSec=Math.round(((POSTES_CONFIG.length-secN)/POSTES_CONFIG.length)*100);
+function buildDashboard() {
+  const t1 = calcTourneeTotal('T1'), t2 = calcTourneeTotal('T2'), t3 = calcTourneeTotal('T3');
+  const max = getMaxTotal();
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+  const total = POSTES_AVEC_CALCUL.length;
+  const avN  = POSTES_AVEC_CALCUL.filter(p => appData.postes[p.id].avanceT['T3']==='avance').length;
+  const okN  = POSTES_AVEC_CALCUL.filter(p => appData.postes[p.id].avanceT['T3']==='ok').length;
+  const retN = POSTES_AVEC_CALCUL.filter(p => appData.postes[p.id].avanceT['T3']==='retard').length;
+  const secN = POSTES_CONFIG.filter(p => Object.values(appData.postes[p.id].secus||{}).some(v=>v.trim())).length;
+  const scoreSec = Math.round(((POSTES_CONFIG.length - secN) / POSTES_CONFIG.length) * 100);
 
-  let html=`
+  let html = `
     <div class="dash-header">
-      <h2>📊 BILAN TOURNÉE</h2>
-      <p>📅 ${dateAff} &nbsp;|&nbsp; 👥 ${appData.effectif||'—'} pers.</p>
-      <p>🚫 ${appData.absence||'—'} &nbsp;|&nbsp; 📚 ${appData.formation||'—'}</p>
+      <h2>📊 BILAN TOURNÉE PLANCHE</h2>
+      <p>📅 ${dateAff} &nbsp;|&nbsp; 👥 Effectif : ${appData.effectif||'—'} pers.</p>
+      <p>🚫 Absence : ${appData.absence||'—'} &nbsp;|&nbsp; 📚 Formation : ${appData.formation||'—'}</p>
     </div>
+
     <div class="encours-card">
       <h3>📦 ENCOURS LENDEMAIN MATIN — T3 figée</h3>
       <div class="big">${t3.toFixed(2)}</div>
       <div class="unit">jours &nbsp;=&nbsp; ${(t3*8).toFixed(1)} heures</div>
       <div class="sub">⚠️ T3 = encours de référence pour demain matin.</div>
     </div>
+
     <div class="dash-tournee-grid">
       <div class="dash-t-card t1">
-        <h4>🔵 T1 🔒</h4><div class="val">${t1.toFixed(2)}</div>
-        <div class="unit2">j / ${(t1*8).toFixed(1)}h</div>
+        <h4>🔵 T1 🔒</h4>
+        <div class="val">${t1.toFixed(2)}</div>
+        <div class="unit2">${(t1*8).toFixed(1)} h</div>
         <div class="dash-t-bar"><div class="dash-t-fill"
           style="width:${Math.min((t1/max)*100,100)}%;background:#1565C0"></div></div>
       </div>
       <div class="dash-t-card t2">
-        <h4>🟢 T2 🔒</h4><div class="val">${t2.toFixed(2)}</div>
-        <div class="unit2">j / ${(t2*8).toFixed(1)}h</div>
+        <h4>🟢 T2 🔒</h4>
+        <div class="val">${t2.toFixed(2)}</div>
+        <div class="unit2">${(t2*8).toFixed(1)} h</div>
         <div class="dash-t-bar"><div class="dash-t-fill"
           style="width:${Math.min((t2/max)*100,100)}%;background:#2E7D32"></div></div>
       </div>
       <div class="dash-t-card t3">
-        <h4>🟠 T3 ★ 🔒</h4><div class="val">${t3.toFixed(2)}</div>
-        <div class="unit2">j / ${(t3*8).toFixed(1)}h</div>
+        <h4>🟠 T3 ★ 🔒</h4>
+        <div class="val">${t3.toFixed(2)}</div>
+        <div class="unit2">${(t3*8).toFixed(1)} h</div>
         <div class="dash-t-bar"><div class="dash-t-fill"
           style="width:${Math.min((t3/max)*100,100)}%;background:#E65100"></div></div>
       </div>
     </div>
-    <div class="card" style="background:#E3F2FD;border-left:4px solid #1565C0;margin-bottom:10px;">
-      <p style="font-size:11px;font-weight:bold;color:#1565C0;margin-bottom:4px">🔵 = Avance → déplacer une personne &nbsp;|&nbsp; 🟢 = OK &nbsp;|&nbsp; 🔴 = Retard</p>
+
+    <div class="card" style="background:#E3F2FD;border-left:4px solid #1565C0">
+      <p style="font-size:11px;font-weight:bold;color:#1565C0">
+        🔵 BLEU = Avance → déplacer une personne &nbsp;|&nbsp; 🟢 VERT = OK &nbsp;|&nbsp; 🔴 ROUGE = Retard
+      </p>
     </div>
-    <p class="section-title">🎯 Avancement T3 (Encours J+1)</p>
+
+    <p class="section-title">🎯 Résumé avancement T3 (Encours J+1)</p>
     <div class="card">
-      ${jaugeD('🔵 Postes Avance T3', avN, total, '#1565C0')}
-      ${jaugeD('🟢 Postes OK T3',     okN, total, '#2E7D32')}
-      ${jaugeD('🔴 Postes Retard T3', retN,total, '#D32F2F')}
-      ${jaugeD('🛡️ Score Sécurité',scoreSec,100,
-        scoreSec>=80?'#2E7D32':scoreSec>=50?'#FF9800':'#D32F2F')}
+      ${jaugeD('🔵 Postes en Avance (T3)', avN, total, '#1565C0')}
+      ${jaugeD('🟢 Postes OK (T3)',         okN, total, '#2E7D32')}
+      ${jaugeD('🔴 Postes en Retard (T3)',  retN,total, '#D32F2F')}
+      ${jaugeD('🛡️ Score Sécurité', scoreSec, 100, scoreSec>=80?'#2E7D32':scoreSec>=50?'#FF9800':'#D32F2F')}
     </div>
+
     <p class="section-title">📌 Détail par poste</p>`;
 
-  POSTES_CONFIG.forEach(p=>{
-    const d=appData.postes[p.id];
-    let ptGrid='';
-    if(p.avecCalcul){
-      ptGrid='<div class="dash-poste-t-grid">';
-      TOURNEES.forEach(t=>{
-        const av=d.avanceT[t]||'';
-        const cfg=ETAT_CFG[av]||ETAT_CFG[''];
-        ptGrid+=`
-          <div class="dash-pt-block ${T_CSS[t]}">
-            <h5>${t==='T1'?'🔵':t==='T2'?'🟢':'🟠'} ${t}${t==='T3'?' ★':''} 🔒</h5>
-            <div class="dash-pt-track">
-              <div class="dash-pt-fill" style="width:${cfg.v*100}%;background:${cfg.col}"></div>
-            </div>
-            <div class="dash-pt-val">${cfg.v>0?cfg.v.toFixed(2)+' j':'—'}</div>
-            <div style="font-size:9px;color:${cfg.col};font-weight:bold;text-align:center;margin-top:2px">
-              ${av==='avance'?'🔵 AVANCE':av==='ok'?'🟢 OK':av==='retard'?'🔴 RETARD':'—'}
-            </div>
+  // ── Tableau lisible par poste ──
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+    const coulBg  = p.avecCalcul ? COULEUR_MAP_BG[d.couleur||'VERT'] : '#546E7A';
+    const coulLbl = p.avecCalcul
+      ? (d.couleur==='BLEU'?'🔵 AVANCE':d.couleur==='VERT'?'🟢 OK':'🔴 RETARD')
+      : 'Info';
+
+    // Bloc avancement T1/T2/T3
+    let avancementHTML = '';
+    if (p.avecCalcul) {
+      avancementHTML = '<div class="avancement-row">';
+      TOURNEES.forEach(t => {
+        const av  = d.avanceT[t] || '';
+        const cfg = ETAT_CFG[av] || ETAT_CFG[''];
+        const icon = t==='T1'?'🔵 T1':t==='T2'?'🟢 T2':'🟠 T3 ★';
+        const sub  = av ? (av==='avance'?'Avance':av==='ok'?'OK':'Retard') : 'Non saisi';
+        avancementHTML += `
+          <div class="av-block ${T_CSS[t]}">
+            <div class="av-label">${icon}${t==='T3'?' — J+1':''}</div>
+            <div class="av-val" style="color:${cfg.col}">${cfg.emoji}</div>
+            <div class="av-sub">${sub}${cfg.v>0?' ('+cfg.v.toFixed(2)+'j)':''}</div>
           </div>`;
       });
-      ptGrid+='</div>';
+      avancementHTML += '</div>';
     }
-    let chips='<div class="qr-chips">';
-    p.questions.forEach(q=>{
-      if(q.type==='ouinon'){TOURNEES.forEach(t=>{
-        const rep=d.reponses[q.id+'_'+t]||'';
-        const isCtrl=q.ctrl===true;
-        const cls=isCtrl?'qr-ctrl':rep==='oui'?'qr-oui':rep==='non'?'qr-non':'qr-nd';
-        const lbl=q.label.replace('🔍 ','').replace('?','').trim().substring(0,13);
-        chips+=`<span class="qr-chip ${cls}">${lbl} ${t}:${rep||'—'}</span>`;
-      });}
-    });
-    chips+='</div>';
-    let qteH='',commH='',secuH='';
-    if(Object.values(d.qtes||{}).some(v=>v)){
-      qteH='<p class="poste-info">📦 '+
-        TOURNEES.map(t=>d.qtes[t]?`${t}:${d.qtes[t]}`:'').filter(Boolean).join(' | ')+'</p>';
+
+    // Bloc checks OUI/NON
+    const qOuiNon = p.questions.filter(q => q.type==='ouinon');
+    let checksHTML = '';
+    if (qOuiNon.length > 0) {
+      checksHTML = `
+        <div class="checks-bloc">
+          <div class="checks-grid">
+            <div class="cg-label" style="font-weight:bold;color:#555">Question</div>
+            <div class="cg-head t1">🔵 T1</div>
+            <div class="cg-head t2">🟢 T2</div>
+            <div class="cg-head t3">🟠 T3</div>`;
+      qOuiNon.forEach(q => {
+        const isCtrl = q.ctrl === true;
+        const shortLabel = q.label.replace('🔍 ','').replace('?','').trim();
+        checksHTML += `<div class="cg-label${isCtrl?' ctrl':''}">${isCtrl?'🔍 ':''}${shortLabel}</div>`;
+        TOURNEES.forEach(t => {
+          const rep = d.reponses[q.id+'_'+t] || '';
+          let cls = '', lbl = rep||'—';
+          if (isCtrl) { cls='rep-ctrl'; }
+          else if (rep==='oui') { cls='rep-oui'; lbl='✅ OUI'; }
+          else if (rep==='non') { cls='rep-non'; lbl='❌ NON'; }
+          else { cls='rep-nd'; lbl='—'; }
+          checksHTML += `<div class="rep-cell"><span class="rep-pill ${cls}">${lbl}</span></div>`;
+        });
+      });
+      checksHTML += '</div></div>';
     }
-    Object.values(d.comms||{}).forEach(v=>{if(v.trim()) commH+=`<p class="comm-info">💬 ${v}</p>`;});
-    Object.values(d.secus||{}).forEach(v=>{if(v.trim()) secuH+=`<p class="secu-alert">⚠️ ${v}</p>`;});
-    const coulBg=p.avecCalcul?COULEUR_MAP_BG[d.couleur||'VERT']:'#546E7A';
-    const coulLbl=p.avecCalcul?(d.couleur==='BLEU'?'🔵 AVANCE':d.couleur==='VERT'?'🟢 OK':'🔴 RETARD'):'Info';
-    html+=`
-      <div class="poste-dash">
-        <div class="poste-dash-titre ${p.avecCalcul?'avec-calcul':'sans-calcul'}">
-          <span>${p.nom}</span>
-          <span class="badge" style="background:${coulBg}">${coulLbl}</span>
+
+    // Quantités
+    let qteHTML = '';
+    const qQte = p.questions.find(q => q.type==='qte');
+    if (qQte) {
+      const vals = TOURNEES.map(t => d.qtes[t] ? `<strong>${t}</strong>&nbsp;${d.qtes[t]}` : '').filter(Boolean);
+      if (vals.length) qteHTML = `<div class="info-ligne"><span class="info-key">📦 Quantités</span><span class="info-val">${vals.join(' &nbsp;|&nbsp; ')}</span></div>`;
+    }
+
+    // Commentaires & sécurité
+    let infoHTML = '';
+    const comms = Object.values(d.comms||{}).filter(v=>v.trim());
+    const secus = Object.values(d.secus||{}).filter(v=>v.trim());
+    if (qteHTML || comms.length || secus.length) {
+      infoHTML = '<div class="info-bloc">';
+      if (qteHTML) infoHTML += qteHTML;
+      comms.forEach(v => {
+        infoHTML += `<div class="info-ligne"><span class="info-key">💬 Commentaire</span><span class="info-val">${v}</span></div>`;
+      });
+      secus.forEach(v => {
+        infoHTML += `<div class="info-ligne secu-ligne"><span class="info-key">⚠️ Sécurité</span><span class="info-val">${v}</span></div>`;
+      });
+      infoHTML += '</div>';
+    }
+
+    html += `
+      <div class="poste-section">
+        <div class="poste-section-header ${p.avecCalcul?'avec-calcul':'sans-calcul'}">
+          <span class="ps-name">${p.nom}</span>
+          <span class="ps-badge" style="background:${coulBg}">${coulLbl}</span>
         </div>
-        <div class="poste-dash-body">${ptGrid}${chips}${qteH}${commH}${secuH}</div>
+        <div class="poste-section-body">
+          ${avancementHTML}
+          ${checksHTML}
+          ${infoHTML}
+        </div>
       </div>`;
   });
-  if(appData.temps)
-    html+=`<p class="section-title">⏱ Temps de passage</p>
-           <div class="card"><p style="font-size:13px">${appData.temps}</p></div>`;
-  if(appData.decisions)
-    html+=`<p class="section-title">🤝 Décisions d'entraide</p>
-           <div class="card"><p style="font-size:13px">${appData.decisions}</p></div>`;
-  document.getElementById('dashboard-content').innerHTML=html;
+
+  if (appData.temps)
+    html += `<p class="section-title">⏱ Temps de passage</p>
+             <div class="card"><p style="font-size:13px">${appData.temps}</p></div>`;
+  if (appData.decisions)
+    html += `<p class="section-title">🤝 Décisions d'entraide</p>
+             <div class="card"><p style="font-size:13px">${appData.decisions}</p></div>`;
+
+  document.getElementById('dashboard-content').innerHTML = html;
 }
 
-function jaugeD(label,value,max,color){
-  const pct=max>0?Math.min((value/max)*100,100):0;
+function jaugeD(label, value, max, color) {
+  const pct = max>0 ? Math.min((value/max)*100,100) : 0;
   return `<div class="jauge-wrap-d">
-    <div class="jauge-label-d"><span>${label}</span>
-      <span style="color:${color};font-weight:bold">${value}/${max}</span></div>
+    <div class="jauge-label-d">
+      <span>${label}</span>
+      <span style="color:${color};font-weight:bold">${value}/${max}</span>
+    </div>
     <div class="jauge-track-d">
       <div class="jauge-fill-d" style="width:${pct}%;background:${color}"></div>
     </div></div>`;
 }
 
 // ═══════════════════════════════════════════════
-// EMAIL
+// IMPRESSION / PDF NATIF
 // ═══════════════════════════════════════════════
-function openEmailModal(){
-  if(!appData.locks['T3']){alert('⚠️ Verrouillez T3 avant d\'envoyer.');return;}
-  const dateAff=appData.date?new Date(appData.date).toLocaleDateString('fr-FR'):'—';
-  document.getElementById('email-subject').value=`Suivi Tournée Planche — ${dateAff}`;
-  document.getElementById('email-to').value='';
-  const t1=calcTourneeTotal('T1'),t2=calcTourneeTotal('T2'),t3=calcTourneeTotal('T3');
-  const max=getMaxTotal();
-  let preview=`
-    <div><div class="ep-title">📋 SUIVI — ${dateAff}</div>
-    <p style="font-size:10px;color:#555;margin-bottom:6px">
-      👥 ${appData.effectif||'—'} | 🚫 ${appData.absence||'—'} | 📚 ${appData.formation||'—'}
-    </p>
-    <div class="ep-encours">
-      <div style="font-size:10px;opacity:.85">📦 ENCOURS LENDEMAIN (T3)</div>
-      <div class="big">${t3.toFixed(2)} j = ${(t3*8).toFixed(1)} h</div>
-    </div>
-    <div style="background:#E3F2FD;border-radius:6px;padding:6px 8px;margin-bottom:6px;font-size:10px;font-weight:bold;color:#1565C0">
-      🔵 Bleu = Avance (déplacer une personne) &nbsp;|&nbsp; 🟢 Vert = OK &nbsp;|&nbsp; 🔴 Rouge = Retard
-    </div>
-    <div class="ep-t-grid">
-      ${['T1','T2','T3'].map((t,i)=>{
-        const v=[t1,t2,t3][i];
-        const col=['#1565C0','#2E7D32','#E65100'][i];
-        const label=['🔵 T1','🟢 T2','🟠 T3 ★'][i];
-        return `<div class="ep-t-card ${['t1','t2','t3'][i]}">
-          <div style="font-size:10px;font-weight:800;color:${col}">${label}</div>
-          <div class="ev">${v.toFixed(2)}</div><div class="eu">jours</div>
-          <div class="ep-t-bar"><div class="ep-t-fill"
-            style="width:${Math.min((v/max)*100,100)}%;background:${col}"></div></div>
-        </div>`;
-      }).join('')}
-    </div></div>
-    <div class="ep-title">📌 Détail par poste</div>`;
+function printBilan() {
+  if (!appData.locks['T3']) return;
+  window.print();
+}
 
-  POSTES_CONFIG.forEach(p=>{
-    const d=appData.postes[p.id];
-    let ptGrid='';
-    if(p.avecCalcul){
-      ptGrid='<div class="ep-pt-grid">';
-      TOURNEES.forEach(t=>{
-        const av=d.avanceT[t]||'';
-        const cfg=ETAT_CFG[av]||ETAT_CFG[''];
-        ptGrid+=`<div class="ep-pt-block ${T_CSS[t]}">
-          <div class="el">${t==='T1'?'🔵':t==='T2'?'🟢':'🟠'} ${t}${t==='T3'?' ★':''}</div>
-          <div class="ep-pt-bar"><div class="ep-pt-fill"
-            style="width:${cfg.v*100}%;background:${cfg.col}"></div></div>
-          <div class="ep-pt-val">${av==='avance'?'🔵':av==='ok'?'🟢':av==='retard'?'🔴':''} ${cfg.v>0?cfg.v.toFixed(2)+' j':'—'}</div>
+// ═══════════════════════════════════════════════
+// TÉLÉCHARGER HTML → PDF
+// ═══════════════════════════════════════════════
+function downloadPdfHtml() {
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+  const t1 = calcTourneeTotal('T1'), t2 = calcTourneeTotal('T2'), t3 = calcTourneeTotal('T3');
+  const max = getMaxTotal();
+
+  // Génère un HTML autonome propre pour impression
+  let content = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+  <title>Bilan Tournée ${dateAff}</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{background:white;font-size:12px;padding:16px;color:#222}
+    h1{font-size:18px;color:#1565C0;margin-bottom:4px}
+    .sub{font-size:11px;color:#555;margin-bottom:14px}
+    .encours{background:#4A148C;color:white;border-radius:10px;padding:12px 16px;
+      margin-bottom:14px;display:flex;align-items:center;gap:20px}
+    .encours .big{font-size:36px;font-weight:900}
+    .encours .el{font-size:11px;opacity:.85}
+    .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+    .t-card{border-radius:8px;padding:10px;text-align:center}
+    .t-card.t1{background:#E3F2FD;border-top:3px solid #1565C0}
+    .t-card.t2{background:#E8F5E9;border-top:3px solid #2E7D32}
+    .t-card.t3{background:#FFF3E0;border-top:3px solid #E65100}
+    .t-card .tv{font-size:20px;font-weight:900}
+    .t-card.t1 .tv{color:#1565C0}.t-card.t2 .tv{color:#2E7D32}.t-card.t3 .tv{color:#E65100}
+    .t-card .tl{font-size:9px;font-weight:800;margin-bottom:4px}
+    .t-card.t1 .tl{color:#1565C0}.t-card.t2 .tl{color:#2E7D32}.t-card.t3 .tl{color:#E65100}
+    .legende{background:#E3F2FD;border-left:4px solid #1565C0;padding:6px 10px;
+      font-size:10px;font-weight:bold;color:#1565C0;margin-bottom:12px;border-radius:4px}
+    .section{font-size:11px;font-weight:800;color:#1565C0;margin:12px 0 6px;
+      border-left:4px solid #1565C0;padding-left:6px}
+    .poste{border:1px solid #ddd;border-radius:8px;margin-bottom:10px;overflow:hidden;page-break-inside:avoid}
+    .poste-head{color:white;padding:6px 12px;display:flex;justify-content:space-between;align-items:center}
+    .poste-head.ac{background:#1565C0}.poste-head.sc{background:#546E7A}
+    .poste-head .pn{font-weight:bold;font-size:12px}
+    .ps-badge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:bold;color:white}
+    .poste-body{padding:8px 12px}
+    .av-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+    .av-b{border-radius:6px;padding:6px;text-align:center}
+    .av-b.t1{background:#E3F2FD}.av-b.t2{background:#E8F5E9}.av-b.t3{background:#FFF3E0}
+    .av-b .al{font-size:9px;font-weight:bold;margin-bottom:2px}
+    .av-b.t1 .al{color:#1565C0}.av-b.t2 .al{color:#2E7D32}.av-b.t3 .al{color:#E65100}
+    .av-b .av{font-size:16px}
+    .av-b .as{font-size:9px;color:#888}
+    table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:6px}
+    th{background:#F0F4F8;color:#555;padding:4px 6px;text-align:center;font-size:9px}
+    td{padding:4px 6px;border-bottom:1px solid #F0F0F0;text-align:center}
+    tr.ctrl td:first-child{color:#7B1FA2;font-weight:bold}
+    td:first-child{text-align:left;color:#444}
+    .pill{display:inline-block;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:bold}
+    .p-oui{background:#C8E6C9;color:#1B5E20}.p-non{background:#FFCDD2;color:#B71C1C}
+    .p-nd{background:#F0F0F0;color:#999}.p-ctrl{background:#EDE7F6;color:#4A148C}
+    .info-line{font-size:10px;margin-top:4px;padding-top:4px;border-top:1px solid #F0F0F0}
+    .info-line span{font-weight:bold}
+    .secu-line{color:#D32F2F;font-weight:bold}
+    .footer{margin-top:16px;font-size:9px;color:#888;border-top:1px solid #ddd;padding-top:8px}
+    @media print{body{padding:8px}.poste{break-inside:avoid}}
+  </style>
+  </head><body>`;
+
+  content += `<h1>📊 BILAN TOURNÉE PLANCHE</h1>
+  <div class="sub">📅 ${dateAff} &nbsp;|&nbsp; 👥 Effectif : ${appData.effectif||'—'} pers. &nbsp;|&nbsp;
+    🚫 Absence : ${appData.absence||'—'} &nbsp;|&nbsp; 📚 Formation : ${appData.formation||'—'}</div>
+
+  <div class="encours">
+    <div>
+      <div class="el">📦 ENCOURS LENDEMAIN MATIN (T3)</div>
+      <div class="big">${t3.toFixed(2)} j</div>
+      <div class="el">= ${(t3*8).toFixed(1)} heures</div>
+    </div>
+    <div style="font-size:11px;opacity:.8">⚠️ T3 = encours de référence pour demain</div>
+  </div>
+
+  <div class="t-grid">
+    <div class="t-card t1"><div class="tl">🔵 TOURNÉE 1 🔒</div>
+      <div class="tv">${t1.toFixed(2)}</div><div style="font-size:9px;color:#888">${(t1*8).toFixed(1)} h</div></div>
+    <div class="t-card t2"><div class="tl">🟢 TOURNÉE 2 🔒</div>
+      <div class="tv">${t2.toFixed(2)}</div><div style="font-size:9px;color:#888">${(t2*8).toFixed(1)} h</div></div>
+    <div class="t-card t3"><div class="tl">🟠 TOURNÉE 3 ★ 🔒</div>
+      <div class="tv">${t3.toFixed(2)}</div><div style="font-size:9px;color:#888">${(t3*8).toFixed(1)} h</div></div>
+  </div>
+
+  <div class="legende">🔵 BLEU = Avance → déplacer une personne &nbsp;|&nbsp; 🟢 VERT = OK &nbsp;|&nbsp; 🔴 ROUGE = Retard</div>
+  <div class="section">📌 Détail par poste</div>`;
+
+  const etatLbl = av => av==='avance'?'🔵 Avance':av==='ok'?'🟢 OK':av==='retard'?'🔴 Retard':'—';
+  const etatCfg = av => ETAT_CFG[av]||ETAT_CFG[''];
+
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+    const coulBg  = p.avecCalcul ? COULEUR_MAP_BG[d.couleur||'VERT'] : '#546E7A';
+    const coulLbl = p.avecCalcul
+      ? (d.couleur==='BLEU'?'🔵 AVANCE':d.couleur==='VERT'?'🟢 OK':'🔴 RETARD') : 'Info';
+
+    content += `<div class="poste">
+      <div class="poste-head ${p.avecCalcul?'ac':'sc'}">
+        <span class="pn">${p.nom}</span>
+        <span class="ps-badge" style="background:${coulBg}">${coulLbl}</span>
+      </div>
+      <div class="poste-body">`;
+
+    // Avancement
+    if (p.avecCalcul) {
+      content += '<div class="av-row">';
+      TOURNEES.forEach(t => {
+        const av  = d.avanceT[t]||'';
+        const cfg = etatCfg(av);
+        content += `<div class="av-b ${T_CSS[t]}">
+          <div class="al">${t==='T1'?'🔵 T1':t==='T2'?'🟢 T2':'🟠 T3 ★'}${t==='T3'?' (J+1)':''}</div>
+          <div class="av">${cfg.emoji||'—'}</div>
+          <div class="as">${av?(av==='avance'?'Avance':av==='ok'?'OK':'Retard'):'Non saisi'}${cfg.v>0?' ('+cfg.v.toFixed(2)+'j)':''}</div>
         </div>`;
       });
-      ptGrid+='</div>';
+      content += '</div>';
     }
-    let chips='<div class="ep-chips">';
-    p.questions.forEach(q=>{
-      if(q.type==='ouinon'){TOURNEES.forEach(t=>{
-        const rep=d.reponses[q.id+'_'+t]||'';
-        const isCtrl=q.ctrl===true;
-        const cls=isCtrl?'ep-chip-ctrl':rep==='oui'?'ep-chip-oui':rep==='non'?'ep-chip-non':'ep-chip-nd';
-        const lbl=q.label.replace('🔍 ','').replace('?','').trim().substring(0,12);
-        chips+=`<span class="ep-chip ${cls}">${lbl} ${t}:${rep||'—'}</span>`;
-      });}
+
+    // Tableau checks
+    const qOuiNon = p.questions.filter(q => q.type==='ouinon');
+    if (qOuiNon.length) {
+      content += '<table><tr><th style="text-align:left">Question</th><th>🔵 T1</th><th>🟢 T2</th><th>🟠 T3</th></tr>';
+      qOuiNon.forEach(q => {
+        const isCtrl = q.ctrl===true;
+        const lbl = q.label.replace('🔍 ','').replace('?','').trim();
+        content += `<tr${isCtrl?' class="ctrl"':''}><td>${isCtrl?'🔍 ':''}${lbl}</td>`;
+        TOURNEES.forEach(t => {
+          const rep = d.reponses[q.id+'_'+t]||'';
+          let cls='p-nd', txt='—';
+          if (isCtrl) { cls='p-ctrl'; txt=rep||'—'; }
+          else if (rep==='oui') { cls='p-oui'; txt='✅ OUI'; }
+          else if (rep==='non') { cls='p-non'; txt='❌ NON'; }
+          content += `<td><span class="pill ${cls}">${txt}</span></td>`;
+        });
+        content += '</tr>';
+      });
+      content += '</table>';
+    }
+
+    // Quantités
+    const qQte = p.questions.find(q => q.type==='qte');
+    if (qQte) {
+      const vals = TOURNEES.map(t => d.qtes[t]?`<strong>${t}</strong> ${d.qtes[t]}`:'').filter(Boolean);
+      if (vals.length) content += `<div class="info-line">📦 <span>Quantités :</span> ${vals.join(' | ')}</div>`;
+    }
+
+    // Commentaires
+    Object.values(d.comms||{}).forEach(v => {
+      if (v.trim()) content += `<div class="info-line">💬 <span>Commentaire :</span> ${v}</div>`;
     });
-    chips+='</div>';
-    let qteH='',commH='',secuH='';
-    if(Object.values(d.qtes||{}).some(v=>v))
-      qteH='<p style="font-size:9px;color:#555;margin-top:3px">📦 '+
-        TOURNEES.map(t=>d.qtes[t]?`${t}:${d.qtes[t]}`:'').filter(Boolean).join(' | ')+'</p>';
-    Object.values(d.comms||{}).forEach(v=>{if(v.trim()) commH+=`<p class="ep-comm">💬 ${v}</p>`;});
-    Object.values(d.secus||{}).forEach(v=>{if(v.trim()) secuH+=`<p class="ep-secu">⚠️ ${v}</p>`;});
-    preview+=`
-      <div class="ep-poste-header ${p.avecCalcul?'':'sans-calcul'}">
-        <span>${p.nom}</span>
-        <span style="font-size:9px">${p.avecCalcul?
-          (d.couleur==='BLEU'?'🔵 AVANCE':d.couleur==='VERT'?'🟢 OK':'🔴 RETARD')
-          :'Info seulement'}</span>
-      </div>
-      <div class="ep-poste-body">${ptGrid}${chips}${qteH}${commH}${secuH}</div>`;
+
+    // Sécurité
+    Object.values(d.secus||{}).forEach(v => {
+      if (v.trim()) content += `<div class="info-line secu-line">⚠️ <span>Sécurité :</span> ${v}</div>`;
+    });
+
+    content += '</div></div>';
   });
-  document.getElementById('email-preview-zone').innerHTML=preview;
+
+  if (appData.temps)
+    content += `<div class="section">⏱ Temps de passage</div><p style="font-size:12px;padding:4px 0">${appData.temps}</p>`;
+  if (appData.decisions)
+    content += `<div class="section">🤝 Décisions d'entraide</div><p style="font-size:12px;padding:4px 0">${appData.decisions}</p>`;
+
+  content += `<div class="footer">Généré le ${new Date().toLocaleString('fr-FR')} — Suivi Tournée Planche</div>`;
+  content += `<script>window.onload=()=>window.print();<\/script>`;
+  content += '</body></html>';
+
+  const blob = new Blob([content], { type:'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const dateStr = appData.date || new Date().toISOString().split('T')[0];
+  const win  = window.open(url, '_blank');
+  if (!win) {
+    // Fallback : téléchargement direct
+    const a = document.createElement('a');
+    a.href = url; a.download = `Bilan_Tournee_${dateStr}.html`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    showToast('📄 Fichier HTML téléchargé — ouvrez-le puis Ctrl+P pour PDF');
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+  closeModal('modal-email');
+  showToast('📄 Bilan ouvert — faites Ctrl+P pour enregistrer en PDF');
+}
+
+// ═══════════════════════════════════════════════
+// TEXTE BILAN (email / copier)
+// ═══════════════════════════════════════════════
+function buildEmailBodyText() {
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+  const t1 = calcTourneeTotal('T1'), t2 = calcTourneeTotal('T2'), t3 = calcTourneeTotal('T3');
+  const bar = v => { const n=Math.round((v/0.75)*10); return '['+('█'.repeat(Math.max(0,n)))+('░'.repeat(Math.max(0,10-n)))+']'; };
+  const etatLbl = av => av==='avance'?'🔵 AVANCE':av==='ok'?'🟢 OK':av==='retard'?'🔴 RETARD':'—';
+
+  let body = '';
+  body += `SUIVI TOURNEE PLANCHE — ${dateAff}\n`;
+  body += `${'='.repeat(52)}\n`;
+  body += `Effectif : ${appData.effectif||'—'}  |  Absence : ${appData.absence||'—'}  |  Formation : ${appData.formation||'—'}\n\n`;
+  body += `REGLETTE : BLEU=Avance (deplacer qqn) | VERT=OK | ROUGE=Retard\n\n`;
+  body += `ENCOURS LENDEMAIN MATIN (T3)\n`;
+  body += `  >>> ${t3.toFixed(2)} jours = ${(t3*8).toFixed(1)} heures <<<\n\n`;
+  body += `TEMPS PAR TOURNEE\n`;
+  body += `  T1  ${bar(t1)}  ${t1.toFixed(2)} j\n`;
+  body += `  T2  ${bar(t2)}  ${t2.toFixed(2)} j\n`;
+  body += `  T3  ${bar(t3)}  ${t3.toFixed(2)} j  [ENCOURS J+1]\n`;
+  body += `${'='.repeat(52)}\n\n`;
+
+  POSTES_CONFIG.forEach(p => {
+    const d = appData.postes[p.id];
+    const coul = p.avecCalcul
+      ? (d.couleur==='BLEU'?'🔵 AVANCE':d.couleur==='VERT'?'🟢 OK':'🔴 RETARD')
+      : 'Info seulement';
+    body += `[ ${p.nom} ] — ${coul}\n`;
+    body += `${'─'.repeat(40)}\n`;
+    if (p.avecCalcul) {
+      TOURNEES.forEach(t => {
+        const av  = d.avanceT[t]||'';
+        const cfg = ETAT_CFG[av]||ETAT_CFG[''];
+        body += `  ${t}${t==='T3'?' [J+1]':'     '} : ${etatLbl(av).padEnd(12)} ${cfg.v>0?bar(cfg.v)+' '+cfg.v.toFixed(2)+'j':''}\n`;
+      });
+    }
+    p.questions.forEach(q => {
+      if (q.type==='ouinon') {
+        const lbl = q.label.replace(/🔍 /g,'').replace('?','').trim();
+        body += `  ${lbl}\n`;
+        TOURNEES.forEach(t => {
+          const rep = d.reponses[q.id+'_'+t]||'—';
+          body += `    ${t} : ${rep==='oui'?'✅ OUI':rep==='non'?'❌ NON':'—'}\n`;
+        });
+      }
+      if (q.type==='qte') {
+        const vals = TOURNEES.map(t => d.qtes[t]?`${t}:${d.qtes[t]}`:'').filter(Boolean);
+        if (vals.length) body += `  Quantites : ${vals.join(' | ')}\n`;
+      }
+    });
+    const comms = Object.values(d.comms||{}).filter(v=>v.trim());
+    const secus = Object.values(d.secus||{}).filter(v=>v.trim());
+    if (comms.length) body += `  Commentaire : ${comms.join(' | ')}\n`;
+    if (secus.length) body += `  ⚠️ SECURITE : ${secus.join(' | ')}\n`;
+    body += '\n';
+  });
+
+  body += `${'='.repeat(52)}\n`;
+  if (appData.temps)     body += `Temps de passage    : ${appData.temps}\n`;
+  if (appData.decisions) body += `Decisions entraide  : ${appData.decisions}\n`;
+  return body;
+}
+
+// ═══════════════════════════════════════════════
+// MODAL EMAIL — TABS
+// ═══════════════════════════════════════════════
+let currentTab = 'mailto';
+
+function switchTab(tab) {
+  currentTab = tab;
+  ['mailto','copy','eml','pdf'].forEach(t => {
+    document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+  });
+  if (tab==='copy') {
+    document.getElementById('copy-zone-content').textContent = buildEmailBodyText();
+  }
+}
+
+function openEmailModal() {
+  if (!appData.locks['T3']) { alert("⚠️ Verrouillez T3 avant d'envoyer."); return; }
+  const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+  const subj = `Suivi Tournée Planche — ${dateAff}`;
+  document.getElementById('email-to').value = '';
+  document.getElementById('email-subject').value = subj;
+  document.getElementById('email-to-eml').value = '';
+  document.getElementById('email-subject-eml').value = subj;
+  buildEmailPreviewHTML();
+  switchTab('mailto');
   openModal('modal-email');
 }
 
-function sendEmail(){
-  const to=document.getElementById('email-to').value.trim();
-  const sub=document.getElementById('email-subject').value;
-  if(!to||!to.includes('@')){alert('❌ Adresse email invalide');return;}
-  const dateAff=appData.date?new Date(appData.date).toLocaleDateString('fr-FR'):'—';
+function buildEmailPreviewHTML() {
   const t1=calcTourneeTotal('T1'),t2=calcTourneeTotal('T2'),t3=calcTourneeTotal('T3');
-  const bar=v=>{ const n=Math.round(v/0.75*10); return '[' + '█'.repeat(n)+'░'.repeat(10-n)+']'; };
-  const etatLbl=av=>av==='avance'?'BLEU/AVANCE':av==='ok'?'VERT/OK':av==='retard'?'ROUGE/RETARD':'—';
-  let body=`SUIVI TOURNÉE PLANCHE — ${dateAff}\n${'═'.repeat(50)}\n`;
-  body+=`Effectif:${appData.effectif||'—'} | Absence:${appData.absence||'—'} | Formation:${appData.formation||'—'}\n\n`;
-  body+=`RÉGLETTE : BLEU=Avance (déplacer une personne) | VERT=OK | ROUGE=Retard\n\n`;
-  body+=`📦 ENCOURS LENDEMAIN MATIN (T3)\n   ${t3.toFixed(2)} jours = ${(t3*8).toFixed(1)} heures\n\n`;
-  body+=`⏱ TEMPS PAR TOURNÉE\n`;
-  body+=`   T1 ${bar(t1)} ${t1.toFixed(2)} j\n`;
-  body+=`   T2 ${bar(t2)} ${t2.toFixed(2)} j\n`;
-  body+=`   T3 ${bar(t3)} ${t3.toFixed(2)} j ★ ENCOURS J+1\n`;
-  body+=`${'═'.repeat(50)}\n\n`;
-  POSTES_CONFIG.forEach(p=>{
-    const d=appData.postes[p.id];
-    const coul=p.avecCalcul?(d.couleur==='BLEU'?'BLEU/AVANCE':d.couleur==='VERT'?'VERT/OK':'ROUGE/RETARD'):'Info seulement';
-    body+=`▌ ${p.nom} [${coul}]\n`;
-    if(p.avecCalcul){
-      TOURNEES.forEach(t=>{
-        const av=d.avanceT[t]||'';
-        const cfg=ETAT_CFG[av]||ETAT_CFG[''];
-        body+=`  ${t} ${cfg.v>0?bar(cfg.v):'[░░░░░░░░░░]'} ${etatLbl(av).padEnd(16)}${cfg.v>0?' '+cfg.v.toFixed(2)+' j':''}${t==='T3'?' ★':''}\n`;
-      });
-    }
-    p.questions.forEach(q=>{
-      if(q.type==='ouinon') TOURNEES.forEach(t=>{
-        const rep=d.reponses[q.id+'_'+t]||'—';
-        body+=`  ${q.label.replace('🔍 ','').replace('?','').trim()} ${t}: ${rep}\n`;
-      });
-    });
-    const comm=Object.values(d.comms||{}).filter(v=>v.trim());
-    const secu=Object.values(d.secus||{}).filter(v=>v.trim());
-    if(comm.length) body+=`  💬 ${comm.join(' | ')}\n`;
-    if(secu.length) body+=`  ⚠️  ${secu.join(' | ')}\n`;
-    body+='\n';
-  });
-  body+=`${'═'.repeat(50)}\n`;
-  body+=`⏱ Temps passage: ${appData.temps||'—'}\n`;
-  body+=`🤝 Décisions: ${appData.decisions||'—'}\n`;
-  window.location.href=
-    `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
-  closeModal('modal-email');
+  const dateAff=appData.date?new Date(appData.date).toLocaleDateString('fr-FR'):'—';
+  let p = `<div style="font-weight:bold;color:#1565C0;margin-bottom:6px;border-bottom:2px solid #E3F2FD;padding-bottom:3px">
+    📋 SUIVI — ${dateAff}</div>
+    <p style="font-size:10px;color:#555;margin-bottom:8px">
+      👥 ${appData.effectif||'—'} pers. | 🚫 ${appData.absence||'—'} | 📚 ${appData.formation||'—'}
+    </p>
+    <div style="background:linear-gradient(135deg,#4A148C,#7B1FA2);color:white;border-radius:8px;
+      padding:10px;margin-bottom:8px;text-align:center">
+      <div style="font-size:10px;opacity:.85">📦 ENCOURS LENDEMAIN (T3)</div>
+      <div style="font-size:20px;font-weight:900">${t3.toFixed(2)} j = ${(t3*8).toFixed(1)} h</div>
+    </div>`;
+  document.getElementById('email-preview-zone').innerHTML = p;
+}
+
+// ── MAILTO ──
+function sendMailto() {
+  const to  = document.getElementById('email-to').value.trim();
+  const sub = document.getElementById('email-subject').value.trim();
+  if (!to || !to.includes('@')) { showToast('❌ Adresse email invalide'); return; }
+  const fullBody = buildEmailBodyText();
+  const maxLen   = 1800;
+  const body = fullBody.length > maxLen
+    ? fullBody.substring(0, maxLen) + '\n\n[...bilan tronqué — utilisez "Copier" pour le bilan complet]'
+    : fullBody;
+  window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+  showToast('✅ Ouverture de votre messagerie…');
+  setTimeout(() => closeModal('modal-email'), 800);
+}
+
+// ── COPIER ──
+function copyToClipboard() {
+  const text = document.getElementById('copy-zone-content').textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('✅ Bilan copié dans le presse-papier !');
+    }).catch(() => fallbackCopy(text));
+  } else { fallbackCopy(text); }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); showToast('✅ Bilan copié !'); }
+  catch(e) { showToast('❌ Copie impossible — sélectionnez le texte manuellement'); }
+  document.body.removeChild(ta);
+}
+
+// ── FICHIER .EML ──
+function downloadEml() {
+  const to  = (document.getElementById('email-to-eml').value||'').trim();
+  const sub = (document.getElementById('email-subject-eml').value||'Suivi Tournée Planche').trim();
+  const body = buildEmailBodyText();
+  const date = new Date().toUTCString();
+  let eml = '';
+  eml += `Date: ${date}\r\n`;
+  if (to) eml += `To: ${to}\r\n`;
+  eml += `Subject: =?UTF-8?B?${btoa(unescape(encodeURIComponent(sub)))}?=\r\n`;
+  eml += `MIME-Version: 1.0\r\n`;
+  eml += `Content-Type: text/plain; charset=UTF-8\r\n`;
+  eml += `Content-Transfer-Encoding: base64\r\n\r\n`;
+  const b64    = btoa(unescape(encodeURIComponent(body)));
+  const chunks = b64.match(/.{1,76}/g) || [];
+  eml += chunks.join('\r\n');
+  const blob   = new Blob([eml], { type:'message/rfc822' });
+  const url    = URL.createObjectURL(blob);
+  const a      = document.createElement('a');
+  const dateStr = appData.date || new Date().toISOString().split('T')[0];
+  a.href = url; a.download = `Bilan_Tournee_${dateStr}.eml`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✅ Fichier .eml téléchargé !');
+}
+
+// ── TOAST ──
+function showToast(msg, duration=3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
 }
 
 // ═══════════════════════════════════════════════
 // VOCAL
 // ═══════════════════════════════════════════════
-let recognition=null,voiceTarget=null;
-function startVoice(pid,field){
-  if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){
+let recognition = null, voiceTarget = null;
+function startVoice(pid, field) {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     alert('❌ Vocal : utilisez Chrome ou Edge.'); return;
   }
-  voiceTarget={pid,field};
-  const isSecu=field.startsWith('secu');
-  const pc=POSTES_CONFIG.find(p=>p.id===pid);
-  document.getElementById('vocal-title').textContent='🎙️ '+(isSecu?'Sécurité':'Commentaire');
-  document.getElementById('vocal-poste-label').textContent='Poste : '+(pc?pc.nom:pid);
-  document.getElementById('vocal-text').textContent='Parlez maintenant...';
-  document.getElementById('vpulse').style.display='inline-block';
+  voiceTarget = { pid, field };
+  const isSecu = field.startsWith('secu');
+  const pc = POSTES_CONFIG.find(p => p.id===pid);
+  document.getElementById('vocal-title').textContent = '🎙️ '+(isSecu?'Sécurité':'Commentaire');
+  document.getElementById('vocal-poste-label').textContent = 'Poste : '+(pc?pc.nom:pid);
+  document.getElementById('vocal-text').textContent = 'Parlez maintenant...';
+  document.getElementById('vpulse').style.display = 'inline-block';
   openModal('modal-vocal');
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  recognition=new SR();
-  recognition.lang='fr-FR'; recognition.continuous=false; recognition.interimResults=true;
-  recognition.onresult=e=>{
-    let txt='';
-    for(let i=e.resultIndex;i<e.results.length;i++) txt+=e.results[i][0].transcript;
-    document.getElementById('vocal-text').textContent=txt;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'fr-FR'; recognition.continuous = false; recognition.interimResults = true;
+  recognition.onresult = e => {
+    let txt = '';
+    for (let i=e.resultIndex; i<e.results.length; i++) txt += e.results[i][0].transcript;
+    document.getElementById('vocal-text').textContent = txt;
   };
-  recognition.onend=()=>document.getElementById('vpulse').style.display='none';
-  recognition.onerror=e=>{
-    document.getElementById('vocal-text').textContent='❌ '+e.error;
-    document.getElementById('vpulse').style.display='none';
+  recognition.onend  = () => document.getElementById('vpulse').style.display = 'none';
+  recognition.onerror = e => {
+    document.getElementById('vocal-text').textContent = '❌ '+e.error;
+    document.getElementById('vpulse').style.display = 'none';
   };
   recognition.start();
 }
-function confirmVoice(){
-  if(!voiceTarget){closeModal('modal-vocal');return;}
-  const text=document.getElementById('vocal-text').textContent;
-  const{pid,field}=voiceTarget;
-  const isSecu=field.startsWith('secu');
-  const qid=field.replace(/^(secu_|comm_)/,'');
-  const el=document.getElementById((isSecu?'secu-':'comm-')+pid+'-'+qid);
-  if(el) el.value=text;
-  if(isSecu) saveSecu(pid,qid,text);
-  else       saveComm(pid,qid,text);
-  if(recognition) recognition.stop();
-  closeModal('modal-vocal'); voiceTarget=null;
+function confirmVoice() {
+  if (!voiceTarget) { closeModal('modal-vocal'); return; }
+  const text = document.getElementById('vocal-text').textContent;
+  const { pid, field } = voiceTarget;
+  const isSecu = field.startsWith('secu');
+  const qid = field.replace(/^(secu_|comm_)/, '');
+  const el = document.getElementById((isSecu?'secu-':'comm-')+pid+'-'+qid);
+  if (el) el.value = text;
+  if (isSecu) saveSecu(pid, qid, text);
+  else        saveComm(pid, qid, text);
+  if (recognition) recognition.stop();
+  closeModal('modal-vocal'); voiceTarget = null;
 }
-function cancelVoice(){
-  if(recognition) recognition.stop();
-  closeModal('modal-vocal'); voiceTarget=null;
+function cancelVoice() {
+  if (recognition) recognition.stop();
+  closeModal('modal-vocal'); voiceTarget = null;
 }
 
-function openModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ═══════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════
-(function init(){
-  const restored=loadAll();
-  const today=new Date().toISOString().split('T')[0];
-  document.getElementById('inp-date').value=appData.date||today;
-  document.getElementById('inp-absence').value=appData.absence||'';
-  document.getElementById('inp-formation').value=appData.formation||'';
-  document.getElementById('inp-effectif').value=appData.effectif||'';
-  document.getElementById('inp-temps').value=appData.temps||'';
-  document.getElementById('inp-decisions').value=appData.decisions||'';
-  if(!appData.date) appData.date=today;
-  if(restored&&(appData.date||appData.locks['T1'])){
-    const dateAff=appData.date?new Date(appData.date).toLocaleDateString('fr-FR'):'—';
-    document.getElementById('reprise-txt').textContent=
+(function init() {
+  const restored = loadAll();
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('inp-date').value       = appData.date || today;
+  document.getElementById('inp-absence').value    = appData.absence || '';
+  document.getElementById('inp-formation').value  = appData.formation || '';
+  document.getElementById('inp-effectif').value   = appData.effectif || '';
+  document.getElementById('inp-temps').value      = appData.temps || '';
+  document.getElementById('inp-decisions').value  = appData.decisions || '';
+  if (!appData.date) appData.date = today;
+  if (restored && (appData.date || appData.locks['T1'])) {
+    const dateAff = appData.date ? new Date(appData.date).toLocaleDateString('fr-FR') : '—';
+    document.getElementById('reprise-txt').textContent =
       `✅ Tournée du ${dateAff} reprise — données conservées`;
-    document.getElementById('reprise-banner').style.display='flex';
+    document.getElementById('reprise-banner').style.display = 'flex';
   }
   buildPostes(); buildJaugesPostes(); updateAll(); applyLockState();
 })();
